@@ -27,3 +27,6 @@ The Alzheimer’s Disease (AD) Assessment Scale-Cognitive Subscale (ADAS-Cog) is
 Measurement of ADAS-Cog: 
 The cognitive subscale (ADAS-Cog) (ADAS-11 in ADNI) includes 11 tasks that include both subject-completed tests and observer-based assessments. Specific tasks include Word Recall, Naming Objects and Fingers, Commands, Constructional Praxis, Ideational Praxis, Orientation, Word Recognition, and Language. ADAS-Cog-13 includes all ADAS-Cog-11 items as well as a test of delayed word recall and a number cancellation or maze task. ADAS-Cog-13 scores range from 0 to 85.
 
+There should be an overlap between ASAS-13 and CDRSB and the correlation of this two assesment is 0.71, which is relative high comparing to other variables.
+
+
