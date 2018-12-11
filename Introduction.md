@@ -20,3 +20,4 @@ How to early diagnosis disease status?
 1. Solve as a classification problem of classifying disease status, Cognitive Normal, Mild Cognitive Impariment (MCI) Alzheimer's Disease (AD) at an early stage using different classification methods and compare the performance to select an optimal model. 
 
 
+
