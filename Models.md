@@ -4,6 +4,14 @@
 ### 1.Data Preparation
 #### 1) Reading and Cleaning Data
 
+###Place 1
+
+Hello, this is some text to fill in this, [here](#place-2), is a link to the second place.
+
+###Place 2
+
+Place one has the fun times of linking here, but I can also link back [here](#place-1).
+
 ```py
 # import dataset
 data_train = pd.read_csv('data_train.csv')
@@ -710,4 +718,287 @@ node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
         node 12: predict class 3
         node 13: predict class 2
       node 14: predict class 3
+```
+
+#### 6) Bagging
+**We used the best decision tree for each imputation method as the base model, and do Bagging with 50 bootstrapping samples.**
+
+```python
+#do 50 bootstrapping and store the results in bagging_train and bagging_test 
+bag_accs_train = []
+bag_accs_test = []
+tops_bagging = []
+
+# function to get the prediction accuracys
+def bagging_pred(df, indexs):
+    df['pred'] = np.zeros(df.shape[0])
+    for i in range(df.shape[0]):
+        count1, count2, count3 = 0, 0, 0
+        for j in range(n_trees):
+            if df.iloc[i,j] == 1:
+                count1 += 1
+            elif df.iloc[i,j] == 2:
+                count2 += 1
+            elif df.iloc[i,j] == 3:
+                count3 += 1
+        counts = [count1, count2, count3]
+        df.at[indexs[i], 'pred'] = counts.index(np.max(counts)) + 1
+    return df
+
+for i in range(3):
+    
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    #Creating model
+    np.random.seed(0)
+    simpletree = DecisionTreeClassifier(max_depth=depths[i])    # best tree of each dataset
+    
+    #Initializing variables
+    n_trees = 50
+    predictions_train = np.zeros((X_train.shape[0], n_trees))
+    predictions_test = np.zeros((X_test.shape[0], n_trees))
+    top_bagging = []
+
+    data_train_n = pd.concat([X_train, y_train],axis=1)
+    #Conduct bootstraping iterations
+    for j in range(n_trees):
+        temp = data_train_n.sample(frac=1, replace=True)
+        boot_y = temp['y']
+        boot_xx = temp[predictors]
+        simpletree.fit(boot_xx, boot_y)  
+        predictions_train[:,j] = simpletree.predict(X_train)   
+        predictions_test[:,j] = simpletree.predict(X_test)
+        
+        # count the times each feature used at the top node in bagging
+        top_bagging.append(simpletree.tree_.feature[0])
+    
+    tops_bagging.append(top_bagging)
+    
+    #Make Predictions Dataframe
+    columns = ['bootstrap model ' + str(k+1) + "'s prediction" for k in range(n_trees)]
+    indexs_train = ['training row ' + str(k+1) for k in range(len(X_train))]
+    indexs_test = ['test row ' + str(k+1) for k in range(len(X_test))]
+    bagging_train = pd.DataFrame(predictions_train, columns=columns, index=indexs_train)
+    bagging_test = pd.DataFrame(predictions_test, columns=columns, index=indexs_test)
+    
+    # get the prediction accuracy
+    bagging_train = bagging_pred(bagging_train, indexs_train)
+    bagging_test = bagging_pred(bagging_test, indexs_test)
+    
+    bag_accs_train.append(accuracy_score(y_train, bagging_train.pred))
+    bag_accs_test.append(accuracy_score(y_test, bagging_test.pred))
+```
+```python
+# print accuracy
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Training accuracy of bagging with 50 trees (max depth={}): {:.4f}' .format(depths[i], bag_accs_train[i]))
+    print('Test accuracy of bagging with 50 trees (max depth={}): {:.4f}' .format(depths[i], bag_accs_test[i]))
+    print('Feature used most at the top node in bagging: 11 \n')
+```
+```Markdown
+(Drop Missing)
+Training accuracy of bagging with 50 trees (max depth=2): 0.9126
+Test accuracy of bagging with 50 trees (max depth=2): 0.9367
+Feature used most at the top node in bagging: 11 
+
+(Mean Imputation)
+Training accuracy of bagging with 50 trees (max depth=3): 0.9353
+Test accuracy of bagging with 50 trees (max depth=3): 0.9369
+Feature used most at the top node in bagging: 11 
+
+(Regression Imputation)
+Training accuracy of bagging with 50 trees (max depth=4): 0.9460
+Test accuracy of bagging with 50 trees (max depth=4): 0.9459
+Feature used most at the top node in bagging: 11 
+```
+**We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high**
+```py
+# prediction accuracy of each label of regression imputation model
+print(classification_report(y_trains[2], dt_models[2].predict(X_trains[2])))
+print(classification_report(y_tests[2], dt_models[2].predict(X_tests[2])))
+```
+```Markdown
+         label    Training Accuracy    Test Accuracy 
+           1           0.98            	   0.92
+           2           0.91                0.91
+           3           0.94                0.92
+```
+
+#### 7) Random Forest
+**We used the best decision tree as the base model, built random forest models with different number of trees, and chose the optimal number of trees for each imputation method based on training accuracy.**
+```python
+# build random forest with different number of trees
+
+fig, ax_rf = plt.subplots(1,3, figsize=(20,5))
+ax_rf = ax_rf.ravel()
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    scores_RF = []
+    for j in range(1,100):
+        RF = RandomForestClassifier(max_depth=depths[i], n_estimators=j, max_features='sqrt', random_state=0).\
+        fit(X_train,y_train)
+        scores_RF.append(accuracy_score(y_train, RF.predict(X_train)))
+    
+    ax_rf[i].plot(range(1,100), scores_RF)
+    ax_rf[i].set_xlabel("Number of estimator")
+    ax_rf[i].set_ylabel("Prediction Accuracy")
+    ax_rf[i].set_title("Prediction Accuracy vs Number of estimators");
+
+    print('({}) Optimal number of trees (max depth={}): {}' 
+          .format(labels[i], depths[i], scores_RF.index(max(scores_RF))+1))
+```
+```Markdown
+(Drop Missing) Optimal number of trees (max depth=2): 10
+(Mean Imputation) Optimal number of trees (max depth=3): 59
+(Regression Imputation) Optimal number of trees (max depth=4): 35
+```
+![Random Forest1](/images/dt2.png)
+
+**Now we fit the best random forest for each dataset with optimal number of trees.**
+```python
+# best random forest for each dataset
+rfs = [10, 59, 35]
+rf_models = []
+rf_accs_train = []
+rf_accs_test = []
+feature_importances_all = []
+fig, ax_rf2 = plt.subplots(3,1, figsize=(10,20))
+ax_rf2 = ax_rf2.ravel()
+
+for i in range(3):
+    RF = RandomForestClassifier(max_depth=depths[i], n_estimators=rfs[i], 
+                                max_features='sqrt', random_state=0).fit(X_trains[i],y_trains[i])
+    rf_models.append(RF)
+
+    rf_accs_train.append(RF.score(X_trains[i], y_trains[i]))
+    rf_accs_test.append(RF.score(X_tests[i], y_tests[i]))
+
+    feature_importances = pd.DataFrame(RF.feature_importances_,
+                                    columns=['importance']).sort_values('importance',ascending=False)
+    feature_importances_all.append(feature_importances)
+    
+    names = X_trains[i].columns.get_values()
+    importances =feature_importances.importance
+    indices = np.argsort(importances)
+    ax_rf2[i].set_title('Feature Importances (' + labels[i] + ')')
+    ax_rf2[i].barh(range(len(indices)), importances[indices], color='b', align='center')
+    ax_rf2[i].set_yticks(range(len(indices)))
+    ax_rf2[i].set_yticklabels(names[indices])
+    ax_rf2[i].set_xlabel('Relative Importance');
+```
+![Random Forest2](/images/rf1.png)
+```python
+# accuracys
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Training accuracy of a random forest with {} trees and max tree depth={} is : {:.4f}.' 
+          .format(rfs[i], depths[i], rf_accs_train[i]))
+    print('Test accuracy of a random forest with {} trees and max tree depth={} is : {:.4f}. \n' 
+          .format(rfs[i], depths[i], rf_accs_test[i]))
+```
+```Markdown
+(Drop Missing)
+Training accuracy of a random forest with 10 trees and max tree depth=2 is : 0.9175.
+Test accuracy of a random forest with 10 trees and max tree depth=2 is : 0.9367. 
+
+(Mean Imputation)
+Training accuracy of a random forest with 59 trees and max tree depth=3 is : 0.9317.
+Test accuracy of a random forest with 59 trees and max tree depth=3 is : 0.9369. 
+
+(Regression Imputation)
+Training accuracy of a random forest with 35 trees and max tree depth=4 is : 0.9532.
+Test accuracy of a random forest with 35 trees and max tree depth=4 is : 0.9640. 
+```
+**We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high**
+```py
+# prediction accuracy of each label of regression imputation model
+print(classification_report(y_trains[2], rf_models[2].predict(X_trains[2])))
+print(classification_report(y_tests[2], rf_models[2].predict(X_tests[2])))
+```
+```Markdown
+         label    Training Accuracy    Test Accuracy 
+           1           0.97            	   0.97
+           2           0.93                0.95
+           3           0.95                0.97
+```
+
+#### 8) AdaBoost
+**We used the best decision tree for each imputation method as the base model to build AdaBoost model.**
+```py
+# Adaboost model using decision tree as baseline model
+ada_accs_train = []
+ada_accs_test = []
+ada_models = []
+fig, ax_ada = plt.subplots(1,3, figsize=(20,5))
+ax_ada = ax_ada.ravel()
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    #Training
+    ada_dt = AdaBoostClassifier(base_estimator=DecisionTreeClassifier
+                                (max_depth=depths[i],random_state=0),learning_rate=0.05)
+    ada_dt.fit(X_train, y_train)
+    ada_models.append(ada_dt)
+    
+    ada_accs_train.append(ada_dt.score(X_train, y_train))
+    ada_accs_test.append(ada_dt.score(X_test, y_test))
+
+    #Plot Iteration based score
+    train_scores_ada_dt = list(ada_dt.staged_score(X_train,y_train))
+    test_scores_ada_dt = list(ada_dt.staged_score(X_test, y_test))
+
+    ax_ada[i].plot(train_scores_ada_dt, label='training set')
+    ax_ada[i].plot(test_scores_ada_dt, label='test test')
+    ax_ada[i].set_xlabel('Number of Iteration')
+    ax_ada[i].set_ylabel('Prediction Accuracy')
+    ax_ada[i].set_title(labels[i])
+    ax_ada[i].legend(frameon=True);
+```
+![AdaBoost](/images/rf2.png)
+```python
+# accuracys
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Training accuracy of Ada boosting model with max tree depth={} is : {:.4f}.' 
+          .format(depths[i], ada_accs_train[i]))
+    print('Test accuracy of Ada boosting model with max tree depth={} is : {:.4f}. \n' 
+          .format(depths[i], ada_accs_test[i]))
+```
+```Markdown
+(Drop Missing)
+Training accuracy of Ada boosting model with max tree depth=2 is : 0.9126.
+Test accuracy of Ada boosting model with max tree depth=2 is : 0.8987. 
+
+(Mean Imputation)
+Training accuracy of Ada boosting model with max tree depth=3 is : 0.9209.
+Test accuracy of Ada boosting model with max tree depth=3 is : 0.9009. 
+
+(Regression Imputation)
+Training accuracy of Ada boosting model with max tree depth=4 is : 1.0000.
+Test accuracy of Ada boosting model with max tree depth=4 is : 0.8919. 
+```
+**We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high, expect for the accuracy of the second label (AD).**
+```py
+# prediction accuracy of each label of regression imputation model
+print(classification_report(y_trains[1], ada_models[1].predict(X_trains[1])))
+print(classification_report(y_tests[1], ada_models[1].predict(X_tests[1])))
+```
+```Markdown
+         label    Training Accuracy    Test Accuracy 
+           1           1.00            	   0.97
+           2           0.81                0.78
+           3           0.92                0.91
 ```
