@@ -1,18 +1,18 @@
 # Models
 ## Contents
 [1. Data Preparation](#data-preparation)<br>
-[	1) Reading and Cleaning Data](#reading-and-cleaning-data)<br>
+	[1) Reading and Cleaning Data](#reading-and-cleaning-data)<br>
 	[2) Imputing and Scaling Data](#imputing-and-scaling-data)<br>
 [2. Classification](#classification)<br>
-    [0) Principle Component Analysis (PCA)](#pca)<br>
-    [1) Multinomial Logistic Modeling](#logistic)<br>
-    [2) Linear discriminant analysis (LDA)](#lda)<br>
-    [3) Quadratic Discriminant Analysis (QDA)](#qda)<br>
-    [4) k-NN](#knn)<br>
-    [5) Decision Tree](#decision-tree)<br>
-    [6) Bagging](#bagging)<br>
-    [7) Random Forest](#random-forest)<br>
-    [8) AdaBoost](#adaboost)<br>
+	[0) Principle Component Analysis (PCA)](#pca)<br>
+	[1) Multinomial Logistic Modeling](#logistic)<br>
+	[2) Linear discriminant analysis (LDA)](#lda)<br>
+	[3) Quadratic Discriminant Analysis (QDA)](#qda)<br>
+	[4) k-NN](#knn)<br>
+	[5) Decision Tree](#decision-tree)<br>
+	[6) Bagging](#bagging)<br>
+	[7) Random Forest](#random-forest)<br>
+	[8) AdaBoost](#adaboost)<br>
 [3. Importance of CDRSB_bl](#cdrsb1)<br>
 
 
