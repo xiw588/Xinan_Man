@@ -3,22 +3,22 @@
 [0.Import Libraries](#cdrsb1)<br>
 [1.Load, Preprocess, Merge, and Split data](#cdrsb1)<br>
 [2.Perform EDA to select potential predictors](#cdrsb1)<br>
-    [a.)Demographics Characteristics]<br>
-    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease]<br>
-    [c.)Lifestyle factors (from medical history dataset)]<br>
-    [d.)Neurocognitive/neuropsychological assessments]<br>
-      [1.)Histogram]
-      [2.)Box plots and count plots with Outcomes]
-      [3.)Correlation matrix]
-    [e.)Cerebrospinal fluid (CSF) Biomarkers]<br>
-      [1.)Histogram]
-      [2.)Box plots]
-      [3.)Correlation matrix]
-    [f.)Imaging factors]
-      [1.)Histogram]
-      [2.)Box plots]
-      [3.)Correlation matrix]
-    [g.) Genetic factors]
+    [a.)Demographics Characteristics](#cdrsb1)<br>
+    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease](#cdrsb1)<br>
+    [c.)Lifestyle factors (from medical history dataset)](#cdrsb1)<br>
+    [d.)Neurocognitive/neuropsychological assessments](#cdrsb1)<br>
+      [1.)Histogram](#cdrsb1)<br>
+      [2.)Box plots and count plots with Outcomes](#cdrsb1)<br>
+      [3.)Correlation matrix](#cdrsb1)<br>
+    [e.)Cerebrospinal fluid (CSF) Biomarkers](#cdrsb1)<br>
+      [1.)Histogram](#cdrsb1)<br>
+      [2.)Box plots](#cdrsb1)<br>
+      [3.)Correlation matrix](#cdrsb1)<br>
+    [f.)Imaging factors](#cdrsb1)<br>
+      [1.)Histogram](#cdrsb1)<br>
+      [2.)Box plots](#cdrsb1)<br>
+      [3.)Correlation matrix](#cdrsb1)<br>
+    [g.) Genetic factors](#cdrsb1)<br>
 </ul>
 
 
