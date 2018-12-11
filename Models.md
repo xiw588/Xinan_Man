@@ -6,13 +6,13 @@
 [2. Classification](#classification)<br>
     [0) Principle Component Analysis (PCA)](#pca)<br>
     [1) Multinomial Logistic Modeling](#logistic)<br>
-    [2) Linear discriminant analysis](#lda)(lda)<br>
-    [3) Quadratic Discriminant Analysis](#qda)(qda)<br>
-    [4) k-NN(#knn)]<br>
-    [5) Decision Tree(#decision-tree)]<br>
-    [6) Bagging(#bagging)]<br>
-    [7) Random Forest(#random-forest)]<br>
-    [8) AdaBoost(#adaboost)]<br>
+    [2) Linear discriminant analysis (LDA)](#lda)<br>
+    [3) Quadratic Discriminant Analysis (QDA)](#qda)<br>
+    [4) k-NN](#knn)<br>
+    [5) Decision Tree](#decision-tree)<br>
+    [6) Bagging](#bagging)<br>
+    [7) Random Forest](#random-forest)<br>
+    [8) AdaBoost](#adaboost)<br>
     
 ## <a name="data-preparation"></a> 1. Data Preparation
 #### <a name="reading-and-cleaning-data"></a> 1) Reading and Cleaning Data
