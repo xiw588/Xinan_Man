@@ -16,7 +16,7 @@ The Washington University Clinical Dementia Rating Scale (CDR) is a global asses
 3) The advantage to using CDR-SOB scores for staging of dementia severity is the increased precision afforded for tracking changes across time.
 
 Measurement of CDR:
-The CDR is obtained through semistructured interviews of patients and informants, and cognitive functioning is rated in 6 domains of functioning: memory, orientation, judgment and problem solving, community affairs, home and hobbies, and personal care. Each domain is rated on a 5-point scale of functioning as follows: 0, no impairment; 0.5, questionable impairment; 1, mild impairment; 2, moderate impairment; and 3, severe impairment (personal care is scored on a 4-point scale without a 0.5 rating available). The CDR-SOB score is obtained by summing each of the domain box scores, with scores ranging from 0 to 18. The CDR demonstrates good reliability11,12 and has been validated against neuropathologic finding13–15
+The CDR is obtained through semistructured interviews of patients and informants, and cognitive functioning is rated in 6 domains of functioning: memory, orientation, judgment and problem solving, community affairs, home and hobbies, and personal care. Each domain is rated on a 5-point scale of functioning as follows: 0, no impairment; 0.5, questionable impairment; 1, mild impairment; 2, moderate impairment; and 3, severe impairment (personal care is scored on a 4-point scale without a 0.5 rating available). The CDR-SOB score is obtained by summing each of the domain box scores, with scores ranging from 0 to 18. The CDR demonstrates good reliability11,12 and has been validated against neuropathologic finding13–15.
 
 ## MMSE 
 
