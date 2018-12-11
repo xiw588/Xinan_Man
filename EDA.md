@@ -184,3 +184,4 @@ for i in range(len(neu_predictors)):
     axn1[i].set_xlabel(neu_xlabels[i],fontsize=15)
     axn1[i].set_ylabel('Frequency',fontsize=14)
 ```
+![Neuro](Neuro.png)
