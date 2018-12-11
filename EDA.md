@@ -151,3 +151,8 @@ Baseline alcohol abuse: The majority of the people in this dataset do not have h
 ###Variable Selection
 We select Baseline smoking as potential predictor.
 ```
+
+## <a name="Neurocognitive/neuropsychological assessments"></a> c. Neurocognitive/neuropsychological assessments
+```Markdown
+For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
+```
