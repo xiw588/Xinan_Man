@@ -1,11 +1,8 @@
 # Models
 ## Contents
-<ul>
-<li>[1. Data Preparation](#data-preparation)</li>
-<ul>
-<li>[1) Reading and Cleaning Data](#reading-and-cleaning-data)</li>
-<li>[2) Imputing and Scaling Data](#imputing-and-scaling-data)</li>
-</ul>
+[1. Data Preparation](#data-preparation)
+	[1) Reading and Cleaning Data](#reading-and-cleaning-data)
+	[2) Imputing and Scaling Data](#imputing-and-scaling-data)
 [2. Classification](#classification)<br>
     [0) Principle Component Analysis (PCA)](#pca)<br>
     [1) Multinomial Logistic Modeling](#logistic)<br>
