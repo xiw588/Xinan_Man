@@ -64,3 +64,8 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
 2. Mean imputation
 3. Regression imputation
 ```Markdown
+
+
+### Jekyll Themes
+
+Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mal5482/2018CS109A_FinalProject_G18/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
