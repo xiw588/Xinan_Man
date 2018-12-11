@@ -18,7 +18,9 @@ The Washington University Clinical Dementia Rating Scale (CDR) is a global asses
 Measurement of CDR:
 The CDR is obtained through semistructured interviews of patients and informants, and cognitive functioning is rated in 6 domains of functioning: memory, orientation, judgment and problem solving, community affairs, home and hobbies, and personal care. Each domain is rated on a 5-point scale of functioning as follows: 0, no impairment; 0.5, questionable impairment; 1, mild impairment; 2, moderate impairment; and 3, severe impairment (personal care is scored on a 4-point scale without a 0.5 rating available). The CDR-SOB score is obtained by summing each of the domain box scores, with scores ranging from 0 to 18. The CDR demonstrates good reliability11,12 and has been validated against neuropathologic finding13–15.
 
-## MMSE 
+## Mini Mental State Examination (MMSE)
+The Mini Mental State Examination (MMSE) is an 11-question measure that can be used to systematically and thoroughly assess mental status. Specific tasks contain five areas of cognitive function: orientation, registration, attention and calculation, recall, and language. The maximum score is 30 and A score of 23 or lower is indicative of cognitive impairment. 
+The MMSE is effective as a screening assessment to separate patients with cognitive impairment from cognitive normal. However, the tool is not able to diagnose the case for changes in cognitive function. Therefore, it may be difficult for MMSE to distinguish LMCI,EMCI and AD. There should be overlaps among the three assessments MMSE, ADAS-13 and CDRSB. The correlation between MMSE and CDRSB is -0.71 and the correlation between MMSE and ADAS-13 is -0.69. The negative sign of the correlation may come from the way of questions.
 
 
 ## Alzheimer’s Disease (AD) Assessment Scale-Cognitive Subscale (ADAS-Cog)
