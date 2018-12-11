@@ -1,16 +1,23 @@
 # Models
 ## Contents
+1. [link](#Data-Preparation)
+    1) Reading and Cleaning Data
+    2) Imputing and Scaling Data
+2. Classification
+    0) Principle Component Analysis (PCA)
+    1) Multinomial Logistic Modeling
+    2) Linear discriminant analysis (LDA)
+    3) Quadratic Discriminant Analysis (QDA)
+    4) k-NN
+    5) Decision Tree
+    6) Bagging
+    7) Random Forest
+    8) AdaBoost
+    
+    
 
 ### 1.Data Preparation
 #### 1) Reading and Cleaning Data
-
-###Place 1
-
-Hello, this is some text to fill in this, [here](#place-2), is a link to the second place.
-
-###Place 2
-
-Place one has the fun times of linking here, but I can also link back [here](#place-1).
 
 ```py
 # import dataset
