@@ -4,7 +4,7 @@
 ### 1.Data Preparation
 #### 1) Reading and Cleaning Data
 
-```Markdown
+```python
 # import dataset
 data_train = pd.read_csv('data_train.csv')
 data_test = pd.read_csv('data_test.csv')
