@@ -1,8 +1,8 @@
 # Models
 ## Contents
-### 0.Data Preparation
 
-#### 1). Reading, Cleaning, and Imputing Data
+### 1.Data Preparation
+#### 1) Reading and Cleaning Data
 
 ```Markdown
 # import dataset
@@ -59,6 +59,8 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
                     'TMT_PtB_Complete','CDRSB_bl','ABETA_bl_n','TAU_bl_n','Hippocampus_bl','Entorhinal_bl',
                     'Ventricles_bl','MidTemp_bl','APOE4']
 ```
+
+#### 2) Imputing and Scaling Data
 **We used three imputation methods to impute missing data:**
 1. Deleting all missing in predictors
 2. Mean imputation
@@ -217,3 +219,77 @@ print('2. Mean imputation: \n\tNumber of instances of CN(class1), AD(class2), LM
 print('3. Regression imputation: \n\tNumber of instances of CN(class1), AD(class2), LMCI(class3) is: {}, {}, {}'
      .format(X_train3[y_train3==1].shape[0], X_train3[y_train3==2].shape[0], X_train3[y_train3==3].shape[0]))
 ```
+```Markdown
+1. Drop all missing: 
+	Number of instances of CN(class1), AD(class2), LMCI(class3) is: 69, 43, 94
+2. Mean imputation: 
+	Number of instances of CN(class1), AD(class2), LMCI(class3) is: 79, 69, 130
+3. Regression imputation: 
+	Number of instances of CN(class1), AD(class2), LMCI(class3) is: 79, 69, 130
+```
+```Markdown
+# Prepare for modeling
+X_trains = [X_train1, X_train2, X_train3]
+y_trains = [y_train1, y_train2, y_train3]
+X_tests = [X_test1, X_test2, X_test3]
+y_tests = [y_test1, y_test2, y_test3]
+labels = ['Drop Missing', 'Mean Imputation', 'Regression Imputation']
+```
+
+### 2.Classification
+#### 0) Principle Component Analysis (PCA)
+
+```Markdown
+fig, ax_pca1 = plt.subplots(1,3, figsize=(18,5))
+ax_pca1 = ax_pca1.ravel()
+
+fig, ax_pca2 = plt.subplots(1,3, figsize=(18,5))
+ax_pca2 = ax_pca2.ravel()
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    
+    pca = PCA()
+    x_train_pca = pca.fit_transform(X_train)
+
+    # Create a dataset for the top two principle components
+    train_pca = pd.DataFrame(y_train)
+    train_pca['pc1'] = x_train_pca[:,0]
+    train_pca['pc2'] = x_train_pca[:,1]
+
+    # Generate a scatter plot for pc1 and pc2
+    ax_pca1[i].scatter(train_pca[train_pca['y']==1]['pc1'], train_pca[train_pca['y']==1]['pc2'], label='CN')
+    ax_pca1[i].scatter(train_pca[train_pca['y']==2]['pc1'], train_pca[train_pca['y']==2]['pc2'], label='AD')
+    ax_pca1[i].scatter(train_pca[train_pca['y']==3]['pc1'], train_pca[train_pca['y']==3]['pc2'], label='LMCI')
+    ax_pca1[i].set_xlabel('PC1')
+    ax_pca1[i].set_ylabel('PC2')
+    ax_pca1[i].legend(loc='best',frameon=True)
+    ax_pca1[i].set_title('PCA (' + labels[i] + ')');
+
+    # cumulative variance plot
+    ax_pca2[i].plot(np.cumsum(pca.explained_variance_ratio_))
+    ax_pca2[i].set_xlabel('Number of components',fontsize=13)
+    ax_pca2[i].set_ylabel('Cumulative explained variance',fontsize=13)
+    ax_pca2[i].set_title("Cumulative explained variance by principle components",fontsize=13);
+
+    # Find the number of components to account for 80% of the variability in the feature set.
+    print('({}) The number of PCs that account for 80% of the variance is {}.'
+          .format(labels[i], 40-sum((np.cumsum(pca.explained_variance_ratio_)>=0.8).astype(int))+1))
+
+    # Find the number of components to account for 90% of the variability in the feature set.
+    print('({}) The number of PCs that account for 90% of the variance is {}.'
+          .format(labels[i],40-sum((np.cumsum(pca.explained_variance_ratio_)>=0.9).astype(int))+1))
+```
+```Markdown
+(Drop Missing) The number of PCs that account for 80% of the variance is 29.
+(Drop Missing) The number of PCs that account for 90% of the variance is 33.
+(Mean Imputation) The number of PCs that account for 80% of the variance is 29.
+(Mean Imputation) The number of PCs that account for 90% of the variance is 33.
+(Regression Imputation) The number of PCs that account for 80% of the variance is 29.
+(Regression Imputation) The number of PCs that account for 90% of the variance is 33.
+```
+(/.png)
+
+#### 1) Multinomial Logistic Modeling
+
