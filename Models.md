@@ -1012,7 +1012,209 @@ print(classification_report(y_tests[1], ada_models[1].predict(X_tests[1])))
            3           0.92                0.91
 ```
 
+
 ## <a name="cdrsb1"></a> 3. Importance of CDRSB_bl
+
+**From previous models, we noticed that CDRSB_bl plays a major role in the classification of the three diagnosis. We want to further comfirm its importance, and also look at the performance of other predictors without this predictor.**
+
 ### <a name="cdrsb2"></a> 1) Distribution of CDRSB_bl
+**We think since CDRSB_bl performs very well in decision tree, we thinks the distribution of it among the three classes must be very different.**
+
+```python
+#plot the distribution of CDRSB_bl
+csplt.title('Distribution of CDRSB_bl within three classes')
+plt.hist(X_train.CDRSB_bl[y_train==1], color='r', alpha=0.6, label='CN(Class 1)')
+plt.hist(X_train.CDRSB_bl[y_train==2], color='b', alpha=0.6, label='AD(Class 2)')
+plt.hist(X_train.CDRSB_bl[y_train==3], color='g', alpha=0.6, label='LMCI(Class 3)')
+plt.xlabel('CDRSB_bl score')
+plt.ylabel('Frequency')
+plt.legend(frameon=True);
+```
+![Distribution of CDRSB_bl](/images/c0.png)
+
 ### <a name="cdrsb3"></a> 2) Decision tree with only CDRSB_bl
+**Because CDRSB_bl does not have missing values, imputation methods do not affect model with CDRSB_bl as the only predictor.**
+```python
+# Decision tree with only CDRSB_bl
+dt_accuracy_dict_only = {}
+dt_cvscore_dict_only = {}
+CDRSB_bl_train = pd.DataFrame(X_trains[1]['CDRSB_bl'])
+
+for i in range(1,11):
+    dt = DecisionTreeClassifier(random_state=0, max_depth = i).fit(CDRSB_bl_train, y_trains[1])
+    dt_accuracy_dict_only[i] = dt.score(CDRSB_bl_train, y_trains[1])                           
+    dt_cvscore_dict_only[i] = cross_val_score(dt, CDRSB_bl_train, y_trains[1], cv=5).mean() 
+    
+fig, ax_do = plt.subplots(1,1,figsize=(8,5))
+ax_do.set_title('Accuracy on training set and CV score (5-fold) vs. maximum tree depth\n (only CDRSB_bl)')
+ax_do.plot(dt_accuracy_dict_only.keys(),dt_accuracy_dict_only.values(),
+           color='orange',marker='o',label='Training Accuracy')
+ax_do.plot(dt_cvscore_dict_only.keys(),dt_cvscore_dict_only.values(),color='g',marker='o',label='CV score')
+ax_do.set_xlabel('Maximum tree depth')
+ax_do.set_ylabel('Accuracy')
+ax_do.legend();
+```
+![Dt with only CDRSB_bl](/images/c1.png)
+
+```python
+# Best model: Decision tree with depth = 2
+CDRSB_bl_test = pd.DataFrame(X_tests[1]['CDRSB_bl'])
+dt_only = DecisionTreeClassifier(max_depth = 2).fit(CDRSB_bl_train, y_trains[1])
+
+# train and test accuracy
+dto_acc_train = dt_only.score(CDRSB_bl_train, y_trains[1])
+dto_acc_test = dt_only.score(CDRSB_bl_test, y_tests[1])
+print('Training accuracy of single decision tree (max depth=3): %.4f' % dto_acc_train)
+print('Test accuracy of single decision tree (max depth=3): %.4f' % dto_acc_test)
+```
+```Markdown
+Training accuracy of single decision tree (max depth=2): 0.8993
+Test accuracy of single decision tree (max depth=2): 0.9099
+```
+
 ### <a name="cdrsb4"></a> 3) Decision tree and random forest without CDRSB_bl
+**We now look at the performace of other predictors when remove CDRSB_bl from the dataset.**
+```python
+# Decision tree without CDRSB_bl
+fig, ax_dd = plt.subplots(1,3,figsize=(18,5))
+ax_dd = ax_dd.ravel()
+
+for i in range(3):
+    dt_accuracy_dict_drop = {}
+    dt_cvscore_dict_drop = {}
+    
+    X_drop_train = X_trains[i].drop(columns='CDRSB_bl')
+    X_drop_test = X_tests[i].drop(columns='CDRSB_bl')
+
+    for j in range(1,11):
+        dt = DecisionTreeClassifier(random_state=0, max_depth = j).fit(X_drop_train, y_trains[i])
+        dt_accuracy_dict_drop[j] = dt.score(X_drop_train, y_trains[i])                           
+        dt_cvscore_dict_drop[j] = cross_val_score(dt, X_drop_train, y_trains[i], cv=5).mean() 
+    
+    ax_dd[i].set_title('{} (drop CDRSB_bl)' .format(labels[i]))
+    ax_dd[i].plot(dt_accuracy_dict_drop.keys(),dt_accuracy_dict_drop.values(),
+               color='orange',marker='o',label='Training Accuracy')
+    ax_dd[i].plot(dt_cvscore_dict_drop.keys(),dt_cvscore_dict_drop.values(),color='g',marker='o',label='CV score')
+    ax_dd[i].set_xlabel('Maximum tree depth')
+    ax_dd[i].set_ylabel('Accuracy')
+    ax_dd[i].legend();
+```
+![Dt without CDRSB_bl](/images/c2.png)
+
+```python
+# Best model: Decision tree with depth = 2, 3, 3 for three datasets
+dt_accs_train_d = []
+dt_accs_test_d = []
+depths_d = [2, 3, 3]
+
+for i in range(3):
+    X_drop_train = X_trains[i].drop(columns='CDRSB_bl')
+    X_drop_test = X_tests[i].drop(columns='CDRSB_bl')
+    
+    dt = DecisionTreeClassifier(max_depth = depths_d[i]).fit(X_drop_train, y_trains[i])
+    # train and test accuracy
+    dt_accs_train_d.append(dt.score(X_drop_train, y_trains[i]))
+    dt_accs_test_d.append(dt.score(X_drop_test, y_tests[i]))
+    
+    print('({})'.format(labels[i]))
+    print('Training accuracy of decision tree (max depth={}): {:.4f}' .format(depths_d[i], dt_accs_train_d[i]))
+    print('Test accuracy of decision tree (max depth={}): {:.4f}' .format(depths_d[i], dt_accs_test_d[i]), '\n')
+```
+```Markdown
+(Drop Missing)
+Training accuracy of decision tree (max depth=2): 0.7718
+Test accuracy of decision tree (max depth=2): 0.7215 
+
+(Mean Imputation)
+Training accuracy of decision tree (max depth=3): 0.7986
+Test accuracy of decision tree (max depth=3): 0.7207 
+
+(Regression Imputation)
+Training accuracy of decision tree (max depth=3): 0.7986
+Test accuracy of decision tree (max depth=3): 0.7207 
+```
+
+```python
+# random forest without CDRSB_bl
+
+fig, ax_rfd = plt.subplots(1,3, figsize=(20,5))
+ax_rfd = ax_rfd.ravel()
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    X_train_nonCDRSB = X_train.drop(columns='CDRSB_bl')
+    X_test_nonCDRSB = X_test.drop(columns='CDRSB_bl')
+    
+    scores_RF_non = []
+    for j in range(1,100):
+        RF = RandomForestClassifier(max_depth=depths_d[i], n_estimators=j, 
+                                    max_features='sqrt', random_state=0).fit(X_train_nonCDRSB, y_train)
+        scores_RF_non.append(accuracy_score(y_train, RF.predict(X_train_nonCDRSB)))
+    
+    ax_rfd[i].plot(range(1,100),scores_RF_non)
+    ax_rfd[i].set_xlabel("Number of estimator")
+    ax_rfd[i].set_ylabel("Prediction Accuracy")
+    ax_rfd[i].set_title("Prediction Accuracy vs Number of estimators");
+
+    print('({}) Optimal number of trees (max depth={}): {}' 
+          .format(labels[i], depths_d[i], scores_RF_non.index(max(scores_RF_non))+1))
+```
+```Markdown
+(Drop Missing) Optimal number of trees (max depth=2): 55
+(Mean Imputation) Optimal number of trees (max depth=3): 26
+(Regression Imputation) Optimal number of trees (max depth=3): 52
+```
+![Rf without CDRSB_bl](/images/c3.png)
+
+```python
+# best random forest for each dataset
+rfds = [55, 26, 52]
+rfd_accs_train = []
+rfd_accs_test = []
+feature_importances_all_d = []
+fig, ax_rfd2 = plt.subplots(3,1, figsize=(10,20))
+ax_rfd2 = ax_rfd2.ravel()
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    X_train_nonCDRSB = X_train.drop(columns='CDRSB_bl')
+    X_test_nonCDRSB = X_test.drop(columns='CDRSB_bl')
+    
+    RF = RandomForestClassifier(max_depth=depths_d[i], n_estimators=rfds[i],
+                                max_features='sqrt', random_state=0).fit(X_train_nonCDRSB,y_train)
+
+    rfd_accs_train.append(RF.score(X_train_nonCDRSB, y_train))
+    rfd_accs_test.append(RF.score(X_test_nonCDRSB, y_test))
+
+    feature_importances = pd.DataFrame(RF.feature_importances_,
+                                    columns=['importance']).sort_values('importance',ascending=False)
+    feature_importances_all_d.append(feature_importances)
+    
+    names = X_train_nonCDRSB.columns.get_values()
+    importances =feature_importances.importance
+    indices = np.argsort(importances)
+    ax_rfd2[i].set_title('Feature Importances (' + labels[i] + ')')
+    ax_rfd2[i].barh(range(len(indices)), importances[indices], color='b', align='center')
+    ax_rfd2[i].set_yticks(range(len(indices)))
+    ax_rfd2[i].set_yticklabels(names[indices])
+    ax_rfd2[i].set_xlabel('Relative Importance');
+```
+![Rf without CDRSB_bl 2](/images/c4.png)
+
+```python
+# accuracys
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Training accuracy of a random forest with {} trees and max tree depth={} is : {:.4f}.' 
+          .format(rfds[i], depths[i], rfd_accs_train[i]))
+    print('Test accuracy of a random forest with {} trees and max tree depth={} is : {:.4f}. \n' 
+          .format(rfds[i], depths_d[i], rfd_accs_test[i]))
+```
+```Markdown
+```
