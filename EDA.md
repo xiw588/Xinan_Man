@@ -107,7 +107,7 @@ for i in range(2):
     axd[i+4].set_xlabel('Baseline Diagnosis')
     axd[i+4].set_title(demo_cont_title[i])
 ```
-![PC1 vs. PC2](/images/unknown.png)
+![Demographics](unknown.png)
 
 ```Markdown
 Interpretation
