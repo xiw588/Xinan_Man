@@ -1,7 +1,7 @@
 # Models
 ## Contents
-[1. Data Preparation](.#-1.data-preparation)
-    [1) Reading and Cleaning Data](.#-1)-reading-and-cleaning-data)
+[1. Data Preparation](.#-1.data-preparation)<br>
+    [1) Reading and Cleaning Data](.#-1\)-reading-and-cleaning-data)
     2) Imputing and Scaling Data
 2. Classification
     0) Principle Component Analysis (PCA)
