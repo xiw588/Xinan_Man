@@ -1,24 +1,24 @@
 # EDA
 ## Contents
-[0. Import Libraries]
-[1. Load, Preprocess, Merge, and Split data]
+[0.Import Libraries](#cdrsb1)<br>
+[1.Load, Preprocess, Merge, and Split data](#cdrsb1)<br>
 [2.Perform EDA to select potential predictors](#cdrsb1)<br>
-    [a.) Demographics Characteristics]<br>
-    [b.) Outcome: Baseline Diagnosis of Alzheimer's Disease]<br>
-    [c.) Lifestyle factors (from medical history dataset)]<br>
-    [d.) Neurocognitive/neuropsychological assessments]<br>
-      [1.) Histogram]
-      [2.) Box plots and count plots with Outcomes]
-      [3.) Correlation matrix]
+    [a.)Demographics Characteristics]<br>
+    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease]<br>
+    [c.)Lifestyle factors (from medical history dataset)]<br>
+    [d.)Neurocognitive/neuropsychological assessments]<br>
+      [1.)Histogram]
+      [2.)Box plots and count plots with Outcomes]
+      [3.)Correlation matrix]
     [e.)Cerebrospinal fluid (CSF) Biomarkers]<br>
-      [1.) Histogram]
-      [2.) Box plots]
-      [3.) Correlation matrix]
-    [f. Imaging factors]
-      [1.) Histogram]
-      [2.) Box plots]
-      [3.) Correlation matrix]
-    [g. Genetic factors]
+      [1.)Histogram]
+      [2.)Box plots]
+      [3.)Correlation matrix]
+    [f.)Imaging factors]
+      [1.)Histogram]
+      [2.)Box plots]
+      [3.)Correlation matrix]
+    [g.) Genetic factors]
 </ul>
 
 
