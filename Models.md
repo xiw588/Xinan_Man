@@ -1,6 +1,6 @@
 # Models
 ## Contents
-[1. Data Preparation](#1\.-data-preparation)<br>
+[- 1. Data Preparation](#1\.-data-preparation)<br>
     [1) Reading and Cleaning Data](#1\)-reading-and-cleaning-data)<br>
     [2) Imputing and Scaling Data](#2\)-imputing-and-scaling-data)<br>
 2. Classification
@@ -248,8 +248,6 @@ X_tests = [X_test1, X_test2, X_test3]
 y_tests = [y_test1, y_test2, y_test3]
 labels = ['Drop Missing', 'Mean Imputation', 'Regression Imputation']
 ```
-
-## 1. Data Preparation
 
 ### 2.Classification
 #### 0) Principle Component Analysis (PCA)
