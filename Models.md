@@ -14,7 +14,7 @@
     7) Random Forest
     8) AdaBoost
     
-
+[text](#reading-and-cleaning-data)
 ## 1. Data Preparation
 #### 1) Reading and Cleaning Data
 
@@ -78,7 +78,7 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
 1. Deleting all missing in predictors
 2. Mean imputation
 3. Regression imputation
-
+#### Reading and Cleaning Data
 ```py
 # 1. no imputation: drop missing values
 
