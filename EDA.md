@@ -185,3 +185,37 @@ for i in range(len(neu_predictors)):
     axn1[i].set_ylabel('Frequency',fontsize=14)
 ```
 ![Neuro](Neuro.png)
+## <a name="Box plots and count plots with Outcomes"></a> 2. Box plots and count plots with Outcomes
+```py
+# plot the boxplot of these predictors versus baseline diagnosis:
+
+fig, axn2 = plt.subplots(4,3,figsize=(20,15))
+fig.suptitle('Boxplots of several predictors with different baseline diagnosis status (training set)', fontsize=20)
+plt.subplots_adjust(hspace=0.55,wspace = 0.4)
+axn2 = axn2.ravel()
+for i in range(len(neu_predictors)):
+    datai = data_neuro[[neu_predictors[i],'DX_bl']]
+    sns.boxplot(ax=axn2[i], x='DX_bl', y=neu_predictors[i], data=datai)
+    axn2[i].set_xlabel('Baseline Diagnosis',fontsize=14)
+    axn2[i].set_ylabel(neu_xlabels[i],fontsize=14)
+ ```
+ ![Neuro_BOX](Neuro_Box.png)
+ 
+ ## <a name="3. Correlation matrix"></a> 3.Correlation matrix
+ ```py
+  # Correlations between neuropsychological measures
+data_neuro_corr = data_neuro.drop(columns='DX_bl')
+corr_n = pd.DataFrame(np.corrcoef(data_neuro_corr.T))
+corr_n.columns = [neu_predictors]
+
+fig, axn3 = plt.subplots(1,1, figsize=(10,8))
+fig.suptitle('Heatmap for Neurocognitive/Neuropsychological Assessments Correlations', fontsize=20)
+sns.heatmap(corr_n, cmap=dpal, annot=True, fmt=".2f", ax=axn3, xticklabels=neu_predictors, yticklabels=neu_predictors);
+```
+ ![Neuro_Heat](Neuro_Heat.png)
+
+
+  
+ ## <a name="3. Correlation matrix"></a> 3.Correlation matrixy
+ ## <a name="3. Correlation matrix"></a> 3.Correlation matrix
+ 
