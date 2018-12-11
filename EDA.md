@@ -110,7 +110,7 @@ for i in range(2):
 ![Demographics](Unknown.png)
 
 ```Markdown
-Interpretation
+###Interpretation
 Outcome: There is only three types of basline diagnosis status for people in ADNI1 stage.
 Gender: Male and female seems to have different patterns of baseline diagnosis. Therefore, we select gender as our potential predictor.
 Marital Status: Based on the countplot, married people seem to have different patterns of baseline diagnosis comparing to unmarried people. We select Martial Status as our potential predictor.
@@ -118,4 +118,7 @@ Race: Again, the majority of people in our training set is 'White'. We do not ha
 Ethnicity: The majority of people in our dataset is 'Non-Hispanic/Latino'. There is no Hispanic/Latino individuals in our training set. We do not have sufficient power to observe the pattern of baseline diagnosis across different ethnicity groups.
 Age: Based on the boxplot, Age seems to have different distribution in different baseline diagnosis groups. Therefore, we select age as our potential predictor.
 Education: There is no apparent relationship between Education and baseline diagnosis.
+
+###Variable Selection
+We select Age, Gender and Marital Status as potential predictors.
 ```
