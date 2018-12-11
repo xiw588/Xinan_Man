@@ -1,8 +1,11 @@
 # Models
 ## Contents
-[1. Data Preparation](#data-preparation)<br>
-	[1) Reading and Cleaning Data](#reading-and-cleaning-data)<br>
-	[2) Imputing and Scaling Data](#imputing-and-scaling-data)<br>
+<ul>
+<li>[1. Data Preparation](#data-preparation)</li>
+<ul>
+<li>[1) Reading and Cleaning Data](#reading-and-cleaning-data)</li>
+<li>[2) Imputing and Scaling Data](#imputing-and-scaling-data)</li>
+</ul>
 [2. Classification](#classification)<br>
     [0) Principle Component Analysis (PCA)](#pca)<br>
     [1) Multinomial Logistic Modeling](#logistic)<br>
@@ -14,6 +17,7 @@
     [7) Random Forest](#random-forest)<br>
     [8) AdaBoost](#adaboost)<br>
 [3. Importance of CDRSB_bl](#cdrsb1)<br>
+</ul>
 
 
 ## <a name="data-preparation"></a> 1. Data Preparation
