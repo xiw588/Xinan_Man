@@ -256,4 +256,17 @@ for i in range(3):
 ```
 ![Imaging](image.png)
 
- 
+ ## <a name="2.Box plot"></a> 2.Box plot
+ ```py
+ ## <a name="2.Box plot"></a> 2.Box plot
+ ## <a name="2.Box plot"></a> 2.Box plot
+fig, axb2 = plt.subplots(1,3,figsize=(20,5))
+fig.suptitle('Cerebrospinal fluid (CSF) Biomarkers vs. Baseline Diagnosis', fontsize=20)
+plt.subplots_adjust(wspace = 0.3)
+axb2 = axb2.ravel()
+for i in range(len(biomkr_df_colunms)):
+    sns.boxplot(ax=axb2[i], x='DX_bl', y=biomkr_df_colunms[i], data=biomkr_df)
+    axb2[i].set_xlabel('Baseline Diagnosis',fontsize=14)
+    axb2[i].set_ylabel(biomkr_df_colunms[i],fontsize=14)
+```
+![Imaging_box](image_box.png)
