@@ -122,3 +122,24 @@ Education: There is no apparent relationship between Education and baseline diag
 ###Variable Selection
 We select Age, Gender and Marital Status as potential predictors.
 ```
+## <a name="b. Lifestyle factors"></a> b. Lifestyle factors (from medical history dataset)
+```py
+plt.figure(figsize=(18,6))
+
+# History of smoking vs. Last Diagnosis
+plt.subplot(121)
+data_smo = data_train[['MH16SMOK','DX_bl']]
+sns.countplot(x='MH16SMOK', hue="DX_bl",data=data_smo)
+plt.title('History smoking vs. Baseline Diagnosis')
+plt.xlabel('History of smoking')
+plt.ylabel('Count') 
+
+# History of alcohol abuse vs. Last Diagnosis
+plt.subplot(122)
+data_alc = data_train[['MH14ALCH','DX_bl']]
+sns.countplot(x='MH14ALCH', hue="DX_bl",data=data_alc)
+plt.title('History alcohol abuse vs. Baseline Diagnosis')
+plt.xlabel('History of alcohol abuse')
+plt.ylabel('Count') ;
+```
+![Smoking_Alcohol](Smok_ALC.png)
