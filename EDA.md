@@ -69,5 +69,5 @@ data_train.to_csv('data_train.csv')
 data_test.to_csv('data_test.csv')
 ```
 ## <a name="Perform EDA to select potential predictors"></a> 2. Perform EDA to select potential predictors
-a. Demographics Characteristics
+## <a name="a. Demographics Characteristics"></a>a. Demographics Characteristics
 ## <a name="Outcome: Baseline Diagnosis of Alzheimer's Disease"></a> Outcome: Baseline Diagnosis of Alzheimer's Disease
