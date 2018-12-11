@@ -290,6 +290,252 @@ for i in range(3):
 (Regression Imputation) The number of PCs that account for 90% of the variance is 33.
 ```
 ![PC1 vs. PC2](/images/pca1.png)
+![Cumulative explained variance](/images/pca2.png)
 
 #### 1) Multinomial Logistic Modeling
 
+```Markdown
+# Multinomial logistic model
+logi_accs_train = []
+logi_accs_test = []
+logi_cvscores = []
+logi_models = []
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    logi_model = LogisticRegressionCV\
+        (random_state=0, cv=5, penalty='l2', multi_class="auto", solver='lbfgs', max_iter=100).fit(X_train,y_train)
+    logi_models.append(logi_model)
+    
+    # cross validation scores
+    logi_cvscore = cross_val_score(logi_model, X_train, y_train, cv=5)
+    logi_cvscores.append(logi_cvscore)
+    
+    # train and test accuracy of logistic regression
+    logi_acc_train = logi_model.score(X_train, y_train)
+    logi_acc_test = logi_model.score(X_test, y_test)
+    logi_accs_train.append(logi_acc_train)
+    logi_accs_test.append(logi_acc_test)
+```
+```Markdown
+# cross validation scores and accuracy
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Cross Validation Score of Multinomial Logistic Model: ', logi_cvscores[i])
+    print('Mean of CV Score of Multinomial Logistic Model: {:.4f}' .format(logi_cvscores[i].mean()))
+    print('Training accuracy: %.4f' % logi_accs_train[i])
+    print('Test accuracy: %.4f' % logi_accs_test[i], '\n')
+```
+```Markdown
+(Drop Missing)
+Cross Validation Score of Multinomial Logistic Model:  [0.88095238 0.83333333 0.78571429 0.92682927 0.8974359 ]
+Mean of CV Score of Multinomial Logistic Model: 0.8649
+Training accuracy: 0.9563
+Test accuracy: 0.8861 
+
+(Mean Imputation)
+Cross Validation Score of Multinomial Logistic Model:  [0.82142857 0.89285714 0.85714286 0.89285714 1.        ]
+Mean of CV Score of Multinomial Logistic Model: 0.8929
+Training accuracy: 0.9532
+Test accuracy: 0.8829 
+
+(Regression Imputation)
+Cross Validation Score of Multinomial Logistic Model:  [0.85714286 0.89285714 0.82142857 0.83928571 0.94444444]
+Mean of CV Score of Multinomial Logistic Model: 0.8710
+Training accuracy: 0.9496
+Test accuracy: 0.9099 
+```
+**We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high**
+```Markdown
+# prediction accuracy of each label of regression imputation model
+print(classification_report(y_trains[2], logi_models[2].predict(X_trains[2])))
+print(classification_report(y_tests[2], logi_models[2].predict(X_tests[2])))
+```
+```Markdown
+         label    Training Accuracy    Test Accuracy 
+           1           0.97            	   0.92
+           2           0.93                0.88
+           3           0.95                0.91
+```
+
+
+#### 2) Linear discriminant analysis (LDA)
+```Markdown
+lda_accs_train = []
+lda_accs_test = []
+lda_models = []
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    lda = LinearDiscriminantAnalysis(store_covariance=True).fit(X_train, y_train)
+    lda_models.append(lda)
+    lda_accs_train.append(lda.score(X_train, y_train))
+    lda_accs_test.append(lda.score(X_test, y_test))
+```
+```Markdown
+# train and test accuracy
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Training accuracy of LDA model: %.4f' % lda_accs_train[i])
+    print('Test accuracy of LDA model: %.4f' % lda_accs_test[i])
+```
+```Markdown
+(Drop Missing)
+Training accuracy of LDA model: 0.9126
+Test accuracy of LDA model: 0.8987
+
+(Mean Imputation)
+Training accuracy of LDA model: 0.9281
+Test accuracy of LDA model: 0.8559
+
+(Regression Imputation)
+Training accuracy of LDA model: 0.9137
+Test accuracy of LDA model: 0.8739
+```
+
+#### 3) Quadratic Discriminant Analysis (QDA)
+```Markdown
+qda_accs_train = []
+qda_accs_test = []
+qda_models = []
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    qda = QuadraticDiscriminantAnalysis(store_covariance=True).fit(X_train, y_train)
+    qda_models.append(qda)
+    qda_accs_train.append(qda.score(X_train, y_train))
+    qda_accs_test.append(qda.score(X_test, y_test))
+```
+```Markdown
+# train and test accuracy
+for i in range(3):
+    print('({})'.format(labels[i]))
+    print('Training accuracy of QDA model: %.4f' % qda_accs_train[i])
+    print('Test accuracy of QDA model: %.4f' % qda_accs_test[i], '\n')
+```
+```Markdown
+(Drop Missing)
+Training accuracy of QDA model: 0.9806
+Test accuracy of QDA model: 0.8354 
+
+(Mean Imputation)
+Training accuracy of QDA model: 0.9568
+Test accuracy of QDA model: 0.8559 
+
+(Regression Imputation)
+Training accuracy of QDA model: 0.9424
+Test accuracy of QDA model: 0.8739 
+```
+
+**We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high**
+```Markdown
+# prediction accuracy of each label of regression imputation model
+print(classification_report(y_trains[2], lda_models[2].predict(X_trains[2])))
+print(classification_report(y_tests[2], lda_models[2].predict(X_tests[2])))
+print(classification_report(y_trains[2], qda_models[2].predict(X_trains[2])))
+print(classification_report(y_tests[2], qda_models[2].predict(X_tests[2])))
+```
+```Markdown
+LDA:
+         label    Training Accuracy    Test Accuracy 
+           1           0.94            	   0.84
+           2           0.90                0.93
+           3           0.91                0.87
+QDA:
+         label    Training Accuracy    Test Accuracy 
+           1           0.98            	   0.91
+           2           0.89                0.75
+           3           0.95                0.90
+```
+
+
+#### 4) k-NN
+**First, we fit multiple k-NN models on training set, and find the best number of k based on cross validation scores**
+```Markdown
+#Fit knn models on training set
+fig, ax_knn = plt.subplots(1,3, figsize=(18,5))
+ax_knn = ax_knn.ravel()
+
+for i in range(3):
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    knn_cvscores_avg = []
+    for j in range(1,30):
+        knn = KNeighborsClassifier(weights='uniform',n_neighbors=j)
+        scores = cross_val_score(knn, X_train, y_train, cv=5, scoring='accuracy')
+        knn_cvscores_avg.append(scores.mean())
+
+    ax_knn[i].plot(range(1,30), knn_cvscores_avg)
+    ax_knn[i].set_xlabel("Neighbours-k")
+    ax_knn[i].set_ylabel("Prediction Accuracy")
+    ax_knn[i].set_title(labels[i]);
+
+    print('({}) Best number of Neighbours-k: {}' .format(labels[i], knn_cvscores_avg.index(max(knn_cvscores_avg))+1))
+```
+```Markdown
+(Drop Missing) Best number of Neighbours-k: 5
+(Mean Imputation) Best number of Neighbours-k: 14
+(Regression Imputation) Best number of Neighbours-k: 10
+```
+![knn_cvscores](/images/knn.png)
+
+**Then we fit the best k-NN model for different imputation dataset**
+```Markdown
+# fit the best kNN model for each dataset
+knn_accs_train = []
+knn_accs_test = []
+ks = [5,14,10]
+knn_models = []
+
+for i in range(3):
+    knn_best = KNeighborsClassifier(weights='uniform',n_neighbors=ks[i]).fit(X_trains[i],y_trains[i])
+    knn_accs_train.append(knn_best.score(X_trains[i],y_trains[i]))
+    knn_accs_test.append(knn_best.score(X_tests[i],y_tests[i]))
+    knn_models.append(knn_best)
+
+    print('({})'.format(labels[i]))
+    print('Training accuracy of k-NN model (k={}): {:.4f}' .format(ks[i], knn_accs_train[i]))
+    print('Test accuracy of k-NN model (k={}): {:.4f}' .format(ks[i], knn_accs_test[i]), '\n')
+```
+```Markdown
+(Drop Missing)
+Training accuracy of k-NN model (k=5): 0.8495
+Test accuracy of k-NN model (k=5): 0.7975 
+
+(Mean Imputation)
+Training accuracy of k-NN model (k=14): 0.8345
+Test accuracy of k-NN model (k=14): 0.8108 
+
+(Regression Imputation)
+Training accuracy of k-NN model (k=10): 0.8237
+Test accuracy of k-NN model (k=10): 0.7928 
+```
+
+**We looked at the prediction accuracy of the best model (using mean imputation) on each diagnosis label, and we found they still remained high**
+```Markdown
+# prediction accuracy of each label of mean imputation model
+print(classification_report(y_trains[1], knn_models[1].predict(X_trains[1])))
+print(classification_report(y_tests[1], knn_models[1].predict(X_tests[1])))
+```
+```Markdown
+LDA:
+         label    Training Accuracy    Test Accuracy 
+           1           0.86            	   0.79
+           2           0.82                0.86
+           3           0.82                0.80
+```
