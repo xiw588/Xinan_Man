@@ -1217,4 +1217,15 @@ for i in range(3):
           .format(rfds[i], depths_d[i], rfd_accs_test[i]))
 ```
 ```Markdown
+(Drop Missing)
+Training accuracy of a random forest with 55 trees and max tree depth=2 is : 0.8107.
+Test accuracy of a random forest with 55 trees and max tree depth=2 is : 0.7595. 
+
+(Mean Imputation)
+Training accuracy of a random forest with 26 trees and max tree depth=3 is : 0.8525.
+Test accuracy of a random forest with 26 trees and max tree depth=3 is : 0.7477. 
+
+(Regression Imputation)
+Training accuracy of a random forest with 52 trees and max tree depth=4 is : 0.8597.
+Test accuracy of a random forest with 52 trees and max tree depth=3 is : 0.7477. 
 ```
