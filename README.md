@@ -1,6 +1,6 @@
 [Summary](https://github.com/xiw588/Xinan_Man/edit/master/README.md) | [Models](https://github.com/mal5482/2018CS109A_FinalProject_G18/edit/master/index.md)
 
-# Predictive model for Early Diagnosis of Alzheimer's Disease using ADNI Database
+# Predictive model for early diagnosis of Alzheimer's Disease using ADNI Databse
 ### Group 18 | Man Liu, Xinan Wang
 
 ## Introduction of Alzheimer's Disease
