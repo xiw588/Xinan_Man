@@ -20,5 +20,10 @@ The CDR is obtained through semistructured interviews of patients and informants
 
 ## MMSE 
 
-## ADAS-13
-The Alzheimer’s Disease (AD) Assessment Scale-Cognitive Subscale (ADAS-Cog) is developed in 1980s and it is considered the gold standard for assessing the efficacy of antidementia treatments. The ADAS-Cog is often employed in these pre-dementia studies; however, the ADAS-Cog was developed for use in studies of dementia where cognitive impairments are more severe. In previous study, people have already raised concerns about whether the ADAS-Cog is able to detect important changes at earlier stages of disease progression. In our study, we have more than half of the patients who are CN and MCI, who are not exactly targeted for this assessment. 
+
+## Alzheimer’s Disease (AD) Assessment Scale-Cognitive Subscale (ADAS-Cog)
+The Alzheimer’s Disease (AD) Assessment Scale-Cognitive Subscale (ADAS-Cog) is developed in 1980s and it is considered the gold standard for assessing the efficacy of antidementia treatments. The ADAS-Cog is often employed in these pre-dementia studies; however, the ADAS-Cog was developed for use in studies of dementia where cognitive impairments are more severe. In previous study, people have already raised concerns about whether the ADAS-Cog is able to detect important changes at earlier stages of disease progression. In our study, we have more than half of the patients who are CN and MCI, who are not exactly targeted for this assessment.  
+
+Measurement of ADAS-Cog: 
+The cognitive subscale (ADAS-Cog) (ADAS-11 in ADNI) includes 11 tasks that include both subject-completed tests and observer-based assessments. Specific tasks include Word Recall, Naming Objects and Fingers, Commands, Constructional Praxis, Ideational Praxis, Orientation, Word Recognition, and Language. ADAS-Cog-13 includes all ADAS-Cog-11 items as well as a test of delayed word recall and a number cancellation or maze task. ADAS-Cog-13 scores range from 0 to 85.
+
