@@ -4,7 +4,7 @@
 ### 1.Data Preparation
 #### 1) Reading and Cleaning Data
 
-```python
+```py
 # import dataset
 data_train = pd.read_csv('data_train.csv')
 data_test = pd.read_csv('data_test.csv')
@@ -52,7 +52,7 @@ def process_data(df):
     df['y'] = df.DX_bl.apply(change_dx_bl)
     return df
 ```
-```Markdown
+```py
 # 19 Predictors we choose based on EDA
 predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
                      'RAVLT_immediate_bl','RAVLT_perc_forgetting_bl','AVLT_Delay_Rec','ADAS13_bl',
@@ -66,7 +66,7 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
 2. Mean imputation
 3. Regression imputation
 
-```Markdown
+```py
 # 1. no imputation: drop missing values
 
 data_train_sub1 = data_train[['AGE','PTGENDER','PTMARRY','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
@@ -101,7 +101,7 @@ X_train1[scale_col] = scaler1.transform(X_train1[scale_col])
 X_test1[scale_col] = scaler1.transform(X_test1[scale_col])
 ```
 
-```Markdown
+```py
 # 2. mean imputation
 
 data_full = pd.concat([data_train, data_test])
@@ -139,7 +139,7 @@ X_train2[scale_col] = scaler2.transform(X_train2[scale_col])
 X_test2[scale_col] = scaler2.transform(X_test2[scale_col])
 ```
 
-```Markdown
+```py
 # 3. regression imputation
 
 data_full = pd.concat([data_train, data_test])
@@ -186,7 +186,7 @@ X_train3[scale_col] = scaler3.transform(X_train3[scale_col])
 X_test3[scale_col] = scaler3.transform(X_test3[scale_col])
 ```
 
-```Markdown
+```py
 # Print the shape of each dataset
 print('1. Drop all missing: \n\tThe sample size of training set : test set is {} ({:.2f}%) : {} ({:.2f}%).' 
       .format(X_train1.shape[0], (100*X_train1.shape[0]/(X_train1.shape[0]+X_test1.shape[0])),
@@ -208,7 +208,7 @@ print('3. Regression imputation: \n\tThe sample size of training set : test set 
 3. Regression imputation: 
 	The sample size of training set : test set is 278 (71.47%) : 111 (28.53%).
 ```
-```Markdown
+```py
 # Print the number of each diagnosis within each dataset
 print('1. Drop all missing: \n\tNumber of instances of CN(class1), AD(class2), LMCI(class3) is: {}, {}, {}'
      .format(X_train1[y_train1==1].shape[0], X_train1[y_train1==2].shape[0], X_train1[y_train1==3].shape[0]))
@@ -227,7 +227,7 @@ print('3. Regression imputation: \n\tNumber of instances of CN(class1), AD(class
 3. Regression imputation: 
 	Number of instances of CN(class1), AD(class2), LMCI(class3) is: 79, 69, 130
 ```
-```Markdown
+```py
 # Prepare for modeling
 X_trains = [X_train1, X_train2, X_train3]
 y_trains = [y_train1, y_train2, y_train3]
@@ -239,7 +239,7 @@ labels = ['Drop Missing', 'Mean Imputation', 'Regression Imputation']
 ### 2.Classification
 #### 0) Principle Component Analysis (PCA)
 
-```Markdown
+```py
 fig, ax_pca1 = plt.subplots(1,3, figsize=(18,5))
 ax_pca1 = ax_pca1.ravel()
 
@@ -294,7 +294,7 @@ for i in range(3):
 
 #### 1) Multinomial Logistic Modeling
 
-```Markdown
+```py
 # Multinomial logistic model
 logi_accs_train = []
 logi_accs_test = []
@@ -321,7 +321,7 @@ for i in range(3):
     logi_accs_train.append(logi_acc_train)
     logi_accs_test.append(logi_acc_test)
 ```
-```Markdown
+```py
 # cross validation scores and accuracy
 for i in range(3):
     print('({})'.format(labels[i]))
@@ -350,7 +350,7 @@ Training accuracy: 0.9496
 Test accuracy: 0.9099 
 ```
 **We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high**
-```Markdown
+```py
 # prediction accuracy of each label of regression imputation model
 print(classification_report(y_trains[2], logi_models[2].predict(X_trains[2])))
 print(classification_report(y_tests[2], logi_models[2].predict(X_tests[2])))
@@ -364,7 +364,7 @@ print(classification_report(y_tests[2], logi_models[2].predict(X_tests[2])))
 
 
 #### 2) Linear discriminant analysis (LDA)
-```Markdown
+```py
 lda_accs_train = []
 lda_accs_test = []
 lda_models = []
@@ -380,7 +380,7 @@ for i in range(3):
     lda_accs_train.append(lda.score(X_train, y_train))
     lda_accs_test.append(lda.score(X_test, y_test))
 ```
-```Markdown
+```py
 # train and test accuracy
 for i in range(3):
     print('({})'.format(labels[i]))
@@ -402,7 +402,7 @@ Test accuracy of LDA model: 0.8739
 ```
 
 #### 3) Quadratic Discriminant Analysis (QDA)
-```Markdown
+```py
 qda_accs_train = []
 qda_accs_test = []
 qda_models = []
@@ -418,7 +418,7 @@ for i in range(3):
     qda_accs_train.append(qda.score(X_train, y_train))
     qda_accs_test.append(qda.score(X_test, y_test))
 ```
-```Markdown
+```py
 # train and test accuracy
 for i in range(3):
     print('({})'.format(labels[i]))
@@ -440,7 +440,7 @@ Test accuracy of QDA model: 0.8739
 ```
 
 **We looked at the prediction accuracy of the best model (using regression imputation) on each diagnosis label, and we found they still remained high**
-```Markdown
+```py
 # prediction accuracy of each label of regression imputation model
 print(classification_report(y_trains[2], lda_models[2].predict(X_trains[2])))
 print(classification_report(y_tests[2], lda_models[2].predict(X_tests[2])))
@@ -463,7 +463,7 @@ QDA:
 
 #### 4) k-NN
 **First, we fit multiple k-NN models on training set, and find the best number of k based on cross validation scores**
-```Markdown
+```py
 #Fit knn models on training set
 fig, ax_knn = plt.subplots(1,3, figsize=(18,5))
 ax_knn = ax_knn.ravel()
@@ -495,7 +495,7 @@ for i in range(3):
 ![knn_cvscores](/images/knn.png)
 
 **Then we fit the best k-NN model for different imputation dataset**
-```Markdown
+```py
 # fit the best kNN model for each dataset
 knn_accs_train = []
 knn_accs_test = []
@@ -527,7 +527,7 @@ Test accuracy of k-NN model (k=10): 0.7928
 ```
 
 **We looked at the prediction accuracy of the best model (using mean imputation) on each diagnosis label, and we found they still remained high**
-```Markdown
+```py
 # prediction accuracy of each label of mean imputation model
 print(classification_report(y_trains[1], knn_models[1].predict(X_trains[1])))
 print(classification_report(y_tests[1], knn_models[1].predict(X_tests[1])))
@@ -541,7 +541,7 @@ print(classification_report(y_tests[1], knn_models[1].predict(X_tests[1])))
 
 #### 5) Decision Tree
 **First, we fit multiple decision trees with different max tree depth on training set, and find the best max tree depth based on cross validation scores**
-```Markdown
+```py
 # Fit Decision trees with different max tree depth
 
 fig, axd = plt.subplots(1,3, figsize=(20,5))
@@ -584,7 +584,7 @@ for i in range(3):
 ![dt_cvscores](/images/dt1.png)
 
 **Then we fit the best decision tree for different imputation dataset**
-```Markdown
+```py
 # Decision tree with depth = 2, 3, 4 for three datasets
 dt_models = []
 dt_accs_train = []
@@ -617,7 +617,7 @@ Test accuracy of decision tree (max depth=4): 0.9189
 ```
 
 **We can have a look at the structure of each decision tree**
-```Markdown
+```py
 # This code is adapted from
 # http://scikit-learn.org/stable/auto_examples/tree/plot_unveil_tree_structure.html
 def show_tree_structure(clf):
@@ -656,7 +656,7 @@ def show_tree_structure(clf):
             print("{}node {}: if X[:, {}] <= {:.3f} then go to node {}, else go to node {}".format(
                 indent, i, feature[i], threshold[i], children_left[i], children_right[i]))
 ```
-```Markdown
+```py
 show_tree_structure(dt_models[0])
 ```
 ```Markdown
@@ -668,7 +668,7 @@ node 0: if X[:, 11] <= -0.731 then go to node 1, else go to node 2
     node 3: predict class 3
     node 4: predict class 2
 ```
-```Markdown
+```py
 show_tree_structure(dt_models[1])
 ```
 ```Markdown
@@ -684,7 +684,7 @@ node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
       node 7: predict class 2
       node 8: predict class 3
 ```
-```Markdown
+```py
 show_tree_structure(dt_models[2])
 ```
 ```Markdown
