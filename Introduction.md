@@ -1,4 +1,4 @@
-[Introduction](https://github.com/xiw588/Xinan_Man/edit/master/Introduction.md)|[EDA](https://github.com/xiw588/Xinan_Man/edit/master/EDA.md)|[Models](https://github.com/xiw588/Xinan_Man/edit/master/Models.md)|[Summary](https://github.com/xiw588/Xinan_Man/edit/master/Summary.md)|[Reference](https://github.com/xiw588/Xinan_Man/edit/master/Reference.md)
+[Introduction](https://github.com/xiw588/Xinan_Man/edit/master/Introduction.md)|[Literature Review](https://github.com/xiw588/Xinan_Man/edit/master/Review.md)|[EDA](https://github.com/xiw588/Xinan_Man/edit/master/EDA.md)|[Models](https://github.com/xiw588/Xinan_Man/edit/master/Models.md)|[Summary](https://github.com/xiw588/Xinan_Man/edit/master/Summary.md)|[Reference](https://github.com/xiw588/Xinan_Man/edit/master/Reference.md)
 
 # Predictive model for early diagnosis of Alzheimer's Disease using ADNI Databse
 ### Group 18 | Man Liu, Xinan Wang
