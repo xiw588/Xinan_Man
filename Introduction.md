@@ -16,6 +16,7 @@ Early diagnosis of AD or MCI is really important in the following aspects. First
 
 ## Problem Statement:
 How to early diagnosis disease status?
-*Solve as a classification problem of classifying disease status, Cognitive Normal, Mild Cognitive Impariment (MCI) Alzheimer's Disease (AD) at an early stage using different classification methods and compare the performance to select an optimal model. 
+
+1. Solve as a classification problem of classifying disease status, Cognitive Normal, Mild Cognitive Impariment (MCI) Alzheimer's Disease (AD) at an early stage using different classification methods and compare the performance to select an optimal model. 
 
 
