@@ -152,7 +152,7 @@ Baseline alcohol abuse: The majority of the people in this dataset do not have h
 We select Baseline smoking as potential predictor.
 ```
 
-## <a name="b. Lifestyle factors"></a> c. Neurocognitive/neuropsychological assessments
+## <a name="eda_4"></a> 4) Neurocognitive/neuropsychological assessments
 **For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.**
 
 **1. Histogram**
