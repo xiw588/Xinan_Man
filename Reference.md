@@ -34,3 +34,4 @@
 34) Andersen K, Lolk A, Kragh-Sorensen P, Petersen NE, Green A. Depression and the risk of Alzheimer disease. Epidemiology. 2005;16(2):233–238. 
 35) Cedarbaum JM, Jaros M, Hernandez C, Coley N, Andrieu S, Grundman M, Vellas B, Alzheimer's Disease Neuroimaging Initiative. Rationale for use of the Clinical Dementia Rating Sum of Boxes as a primary outcome measure for Alzheimer’s disease clinical trials. Alzheimer's & Dementia. 2013 Feb 1;9(1):S45-55.
 36) Kueper JK, Speechley M, Montero-Odasso M. The Alzheimer’s Disease Assessment Scale–Cognitive Subscale (ADAS-Cog): Modifications and Responsiveness in Pre-Dementia Populations. A Narrative Review. Journal of Alzheimer's Disease. 2018 Jan 1(Preprint):1-22.
+37) MMSE: https://www.mountsinai.on.ca/care/psych/on-call-resources/on-call-resources/mmse.pdf
