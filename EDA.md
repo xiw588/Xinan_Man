@@ -157,3 +157,30 @@ We select Baseline smoking as potential predictor.
 For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 ```
 ## <a name="1. Histogram"></a> 1. Histogram
+
+# plot the histogram of these predictors:
+```py
+neu_predictors = ['MMSE_bl','RAVLT_learning_bl','RAVLT_immediate_bl','RAVLT_forgetting_bl',
+              'RAVLT_perc_forgetting_bl','AVLT_Delay_Rec','ADAS11_bl','ADAS13_bl','TMT_PtA_Complete',
+             'TMT_PtB_Complete','CDRSB_bl','FAQ']
+
+# drop some extreme values for several predictors
+data_neuro = data_train[['DX_bl'] + neu_predictors].dropna()
+data_neuro = data_neuro[(data_neuro['AVLT_Delay_Rec'] < 800) & (data_neuro['TMT_PtA_Complete'] < 800)
+                       & (data_neuro['TMT_PtB_Complete'] < 800)]
+
+neu_xlabels = ['Baseline MMSE score','RAVLT scores \n Learning','RAVLT scores \n Immediate Recall',
+         'RAVLT scores \n Forgetting','RAVLT scores \n Percent Forgetting','AVLT Delayed \nRecognition score',
+         'Baseline ADAS11','Baseline ADAS13','Trail making test \nA score','Trail making test \nB score',
+         'Clinical Dementia \nRating score','Functional Activities \nQuestionnaire (FAQ) score']
+
+fig, axn1 = plt.subplots(3,4,figsize=(20,10))
+fig.suptitle('Histogram of several predictors with their mean (training set)', fontsize=20)
+plt.subplots_adjust(hspace=0.7,wspace = 0.4)
+axn1 = axn1.ravel()
+for i in range(len(neu_predictors)):
+    data_neuro[neu_predictors[i]].hist(ax=axn1[i], alpha=0.7, bins=10, label='Histogram', grid=False)
+    axn1[i].axvline(data_neuro[neu_predictors[i]].mean(), 0, 1.0, color='red', label='Mean')
+    axn1[i].set_xlabel(neu_xlabels[i],fontsize=15)
+    axn1[i].set_ylabel('Frequency',fontsize=14)
+```
