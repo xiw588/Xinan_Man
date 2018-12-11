@@ -79,7 +79,7 @@ bldx_df.AD=np.mean(data_train['DX_bl']=='AD')
 bldx_df.LMCI=np.mean(data_train['DX_bl']=='LMCI')
 bldx_df
 ```	
-CN	AD	LMCI
+                                CN	        AD          LMCI
 Baseline Diagnosis Prevalence	0.294964	0.230216	0.47482
 
 
