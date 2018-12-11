@@ -1,6 +1,6 @@
 # Models
 ## Contents
-1. [link](#Data-Preparation)
+1. [Data Preparation](#Data-Preparation)
     1) Reading and Cleaning Data
     2) Imputing and Scaling Data
 2. Classification
