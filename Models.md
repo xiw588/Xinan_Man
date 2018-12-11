@@ -14,10 +14,13 @@
 	[7) Random Forest](#random-forest)<br>
 	[8) AdaBoost](#adaboost)<br>
 [3. Importance of CDRSB_bl](#cdrsb1)<br>
-
+	[1) Distribution of CDRSB_bl](#cdrsb2)<br>
+	[2) Decision tree with only CDRSB_bl](#cdrsb3)<br>
+	[3) Decision tree and random forest without CDRSB_bl](#cdrsb4)<br>
+	
 
 ## <a name="data-preparation"></a> 1. Data Preparation
-#### <a name="reading-and-cleaning-data"></a> 1) Reading and Cleaning Data
+### <a name="reading-and-cleaning-data"></a> 1) Reading and Cleaning Data
 
 ```py
 # import dataset
@@ -74,7 +77,7 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
                     'TMT_PtB_Complete','CDRSB_bl','ABETA_bl_n','TAU_bl_n','Hippocampus_bl','Entorhinal_bl',
                     'Ventricles_bl','MidTemp_bl','APOE4']
 ```
-#### <a name="imputing-and-scaling-data"></a> 2) Imputing and Scaling Data
+### <a name="imputing-and-scaling-data"></a> 2) Imputing and Scaling Data
 **We used three imputation methods to impute missing data:**
 1. Deleting all missing in predictors
 2. Mean imputation
@@ -250,8 +253,8 @@ y_tests = [y_test1, y_test2, y_test3]
 labels = ['Drop Missing', 'Mean Imputation', 'Regression Imputation']
 ```
 
-### <a name="classification"></a> 2.Classification
-#### <a name="pca"></a> 0) Principle Component Analysis (PCA)
+## <a name="classification"></a> 2.Classification
+### <a name="pca"></a> 0) Principle Component Analysis (PCA)
 
 ```py
 fig, ax_pca1 = plt.subplots(1,3, figsize=(18,5))
@@ -306,7 +309,7 @@ for i in range(3):
 ![PC1 vs. PC2](/images/pca1.png)
 ![Cumulative explained variance](/images/pca2.png)
 
-#### <a name="logistic"></a> 1) Multinomial Logistic Modeling
+### <a name="logistic"></a> 1) Multinomial Logistic Modeling
 
 ```py
 # Multinomial logistic model
@@ -377,7 +380,7 @@ print(classification_report(y_tests[2], logi_models[2].predict(X_tests[2])))
 ```
 
 
-#### <a name="lda"></a> 2) Linear discriminant analysis (LDA)
+### <a name="lda"></a> 2) Linear discriminant analysis (LDA)
 ```py
 # LDA
 lda_accs_train = []
@@ -416,7 +419,7 @@ Training accuracy of LDA model: 0.9137
 Test accuracy of LDA model: 0.8739
 ```
 
-#### <a name="qda"></a> 3) Quadratic Discriminant Analysis (QDA)
+### <a name="qda"></a> 3) Quadratic Discriminant Analysis (QDA)
 ```py
 # QDA
 qda_accs_train = []
@@ -477,7 +480,7 @@ QDA:
 ```
 
 
-#### <a name="knn"></a> 4) k-NN
+### <a name="knn"></a> 4) k-NN
 **First, we fit multiple k-NN models on training set, and find the best number of k based on cross validation scores**
 ```py
 #Fit knn models on training set
@@ -555,7 +558,7 @@ print(classification_report(y_tests[1], knn_models[1].predict(X_tests[1])))
            3           0.82                0.80
 ```
 
-#### <a name="decision-tree"></a> 5) Decision Tree
+### <a name="decision-tree"></a> 5) Decision Tree
 **First, we fit multiple decision trees with different max tree depth on training set, and find the best max tree depth based on cross validation scores**
 ```py
 # Fit Decision trees with different max tree depth
@@ -726,7 +729,7 @@ node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
       node 14: predict class 3
 ```
 
-#### <a name="bagging"></a> 6) Bagging
+### <a name="bagging"></a> 6) Bagging
 **We used the best decision tree for each imputation method as the base model, and do Bagging with 50 bootstrapping samples.**
 
 ```python
@@ -834,7 +837,7 @@ print(classification_report(y_tests[2], dt_models[2].predict(X_tests[2])))
            3           0.94                0.92
 ```
 
-#### <a name="random-forest"></a> 7) Random Forest
+### <a name="random-forest"></a> 7) Random Forest
 **We used the best decision tree as the base model, built random forest models with different number of trees, and chose the optimal number of trees for each imputation method based on training accuracy.**
 ```python
 # build random forest with different number of trees
@@ -937,7 +940,7 @@ print(classification_report(y_tests[2], rf_models[2].predict(X_tests[2])))
            3           0.95                0.97
 ```
 
-#### <a name="adaboost"></a> 8) AdaBoost
+### <a name="adaboost"></a> 8) AdaBoost
 **We used the best decision tree for each imputation method as the base model to build AdaBoost model.**
 ```py
 # Adaboost model using decision tree as baseline model
@@ -1008,3 +1011,8 @@ print(classification_report(y_tests[1], ada_models[1].predict(X_tests[1])))
            2           0.81                0.78
            3           0.92                0.91
 ```
+
+## <a name="cdrsb1"></a> 3. Importance of CDRSB_bl
+### <a name="cdrsb2"></a> 1) Distribution of CDRSB_bl
+### <a name="cdrsb3"></a> 2) Decision tree with only CDRSB_bl
+### <a name="cdrsb4"></a> 3) Decision tree and random forest without CDRSB_bl
