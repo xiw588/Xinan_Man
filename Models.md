@@ -533,9 +533,176 @@ print(classification_report(y_trains[1], knn_models[1].predict(X_trains[1])))
 print(classification_report(y_tests[1], knn_models[1].predict(X_tests[1])))
 ```
 ```Markdown
-LDA:
          label    Training Accuracy    Test Accuracy 
            1           0.86            	   0.79
            2           0.82                0.86
            3           0.82                0.80
+```
+
+#### 5) Decision Tree
+**First, we fit multiple decision trees with different max tree depth on training set, and find the best max tree depth based on cross validation scores**
+```Markdown
+# Fit Decision trees with different max tree depth
+
+fig, axd = plt.subplots(1,3, figsize=(20,5))
+axd = axd.ravel()
+
+for i in range(3):
+    
+    X_train = X_trains[i]
+    y_train = y_trains[i]
+    X_test = X_tests[i]
+    y_test = y_tests[i]
+    
+    dt_accuracy_dict = {}
+    dt_cvscore_dict = {}
+    
+    for j in range(2,11):
+        dt = DecisionTreeClassifier(random_state=0, max_depth = j)
+        dt.fit(X_train, y_train)
+        dt_accuracy_dict[j] = dt.score(X_train, y_train)                           # accuracy on training set
+        dt_cvscore_dict[j] = cross_val_score(dt, X_train, y_train, cv=5).mean()    # mean score on validation set
+    
+    axd[i].set_title(labels[i])
+    axd[i].plot(dt_accuracy_dict.keys(),dt_accuracy_dict.values(),color='orange',marker='o',label='Training Accuracy')
+    axd[i].plot(dt_cvscore_dict.keys(),dt_cvscore_dict.values(),color='g',marker='o',label='CV score')
+    axd[i].set_xlabel('Maximum tree depth')
+    axd[i].set_ylabel('Accuracy')
+    axd[i].legend(loc='upper left');
+    
+    best_depth = 0
+    for k,v in dt_cvscore_dict.items():
+        if v == max(dt_cvscore_dict.values()):
+            best_depth = k
+    print('({}) Optimal max tree depth = {}'. format(labels[i], best_depth))
+```
+```Markdown
+(Drop Missing) Optimal max tree depth = 2
+(Mean Imputation) Optimal max tree depth = 3
+(Regression Imputation) Optimal max tree depth = 4
+```
+![dt_cvscores](/images/dt1.png)
+
+**Then we fit the best decision tree for different imputation dataset**
+```Markdown
+# Decision tree with depth = 2, 3, 4 for three datasets
+dt_models = []
+dt_accs_train = []
+dt_accs_test = []
+depths = [2, 3, 4]
+
+for i in range(3):
+    dt = DecisionTreeClassifier(max_depth = depths[i]).fit(X_trains[i], y_trains[i])
+    dt_models.append(dt)
+    # train and test accuracy
+    dt_accs_train.append(dt.score(X_trains[i], y_trains[i]))
+    dt_accs_test.append(dt.score(X_tests[i], y_tests[i]))
+    
+    print('({})'.format(labels[i]))
+    print('Training accuracy of decision tree (max depth={}): {:.4f}' .format(depths[i], dt_accs_train[i]))
+    print('Test accuracy of decision tree (max depth={}): {:.4f}' .format(depths[i], dt_accs_test[i]), '\n')
+```
+```Markdown
+(Drop Missing)
+Training accuracy of decision tree (max depth=2): 0.9126
+Test accuracy of decision tree (max depth=2): 0.9367 
+
+(Mean Imputation)
+Training accuracy of decision tree (max depth=3): 0.9353
+Test accuracy of decision tree (max depth=3): 0.9369 
+
+(Regression Imputation)
+Training accuracy of decision tree (max depth=4): 0.9460
+Test accuracy of decision tree (max depth=4): 0.9189 
+```
+
+**We can have a look at the structure of each decision tree**
+```Markdown
+# This code is adapted from
+# http://scikit-learn.org/stable/auto_examples/tree/plot_unveil_tree_structure.html
+def show_tree_structure(clf):
+    tree = clf.tree_
+
+    n_nodes = tree.node_count
+    children_left = tree.children_left
+    children_right = tree.children_right
+    feature = tree.feature
+    threshold = tree.threshold
+
+    # The tree structure can be traversed to compute various properties such
+    # as the depth of each node and whether or not it is a leaf.
+    node_depth = np.zeros(shape=n_nodes, dtype=np.int64)
+    is_leaves = np.zeros(shape=n_nodes, dtype=bool)
+    stack = [(0, -1)]  # seed is the root node id and its parent depth
+    while len(stack) > 0:
+        node_id, parent_depth = stack.pop()
+        node_depth[node_id] = parent_depth + 1
+
+        # If we have a test node
+        if (children_left[node_id] != children_right[node_id]):
+            stack.append((children_left[node_id], parent_depth + 1))
+            stack.append((children_right[node_id], parent_depth + 1))
+        else:
+            is_leaves[node_id] = True
+
+    print(f"The binary tree structure has {n_nodes} nodes:\n")
+    
+    for i in range(n_nodes):
+        indent = node_depth[i] * "  "
+        if is_leaves[i]:
+            prediction = clf.classes_[np.argmax(tree.value[i])]
+            print(f"{indent}node {i}: predict class {prediction}")
+        else:
+            print("{}node {}: if X[:, {}] <= {:.3f} then go to node {}, else go to node {}".format(
+                indent, i, feature[i], threshold[i], children_left[i], children_right[i]))
+```
+```Markdown
+show_tree_structure(dt_models[0])
+```
+```Markdown
+The binary tree structure has 5 nodes:
+
+node 0: if X[:, 11] <= -0.731 then go to node 1, else go to node 2
+  node 1: predict class 1
+  node 2: if X[:, 11] <= 0.897 then go to node 3, else go to node 4
+    node 3: predict class 3
+    node 4: predict class 2
+```
+```Markdown
+show_tree_structure(dt_models[1])
+```
+```Markdown
+The binary tree structure has 9 nodes:
+
+node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
+  node 1: predict class 1
+  node 2: if X[:, 11] <= 0.561 then go to node 3, else go to node 6
+    node 3: if X[:, 4] <= -1.196 then go to node 4, else go to node 5
+      node 4: predict class 2
+      node 5: predict class 3
+    node 6: if X[:, 4] <= -0.069 then go to node 7, else go to node 8
+      node 7: predict class 2
+      node 8: predict class 3
+```
+```Markdown
+show_tree_structure(dt_models[2])
+```
+```Markdown
+The binary tree structure has 15 nodes:
+
+node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
+  node 1: predict class 1
+  node 2: if X[:, 11] <= 0.561 then go to node 3, else go to node 10
+    node 3: if X[:, 4] <= -1.196 then go to node 4, else go to node 7
+      node 4: if X[:, 10] <= -0.255 then go to node 5, else go to node 6
+        node 5: predict class 3
+        node 6: predict class 2
+      node 7: if X[:, 17] <= -1.758 then go to node 8, else go to node 9
+        node 8: predict class 1
+        node 9: predict class 3
+    node 10: if X[:, 4] <= -0.069 then go to node 11, else go to node 14
+      node 11: if X[:, 9] <= -0.534 then go to node 12, else go to node 13
+        node 12: predict class 3
+        node 13: predict class 2
+      node 14: predict class 3
 ```
