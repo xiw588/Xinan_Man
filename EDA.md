@@ -13,56 +13,18 @@
 </ul>
 
 
-## <a name="data-preparation"></a> 1. Data Preparation
-#### <a name="reading-and-cleaning-data"></a> 1) Reading and Cleaning Data
+## <a name="Import libraries"></a> 0. Import libraries
 
 ```py
-# import dataset
-data_train = pd.read_csv('data_train.csv')
-data_test = pd.read_csv('data_test.csv')
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+sns.set_context('poster')
 
-# functions to recode some variable
-def change_gender(x):    # recode gender
-    if x == 'Female':
-        return 1
-    else:
-        return 0
-
-def change_marry(x):     # recode marry
-    if x == 'Married':
-        return 1
-    else:
-        return 0
-
-def change_abeta_bl(x):   # recode ABETA_bl
-    if x == '>1700':
-        return 1800
-    elif x == '<200':
-        return 100
-    else:
-        return float(x)
-
-def change_tau_bl(x):      # recode TAU_bl
-    if x == '<80':
-        return 40
-    else:
-        return float(x)
-
-def change_dx_bl(x):       # recode DX_bl(outcome)
-    if x == 'CN':
-        return 1
-    elif x == 'AD':
-        return 2
-    else:
-        return 3
-
-def process_data(df):
-    df['gender'] = df.PTGENDER.apply(change_gender)
-    df['married'] = df.PTMARRY.apply(change_marry)
-    df['ABETA_bl_n'] = df.ABETA_bl.apply(change_abeta_bl)
-    df['TAU_bl_n'] = df.TAU_bl.apply(change_tau_bl)
-    df['y'] = df.DX_bl.apply(change_dx_bl)
-    return df
+# set color palette
+dpal = sns.choose_colorbrewer_palette(data_type='diverging', as_cmap=True)
 ```
 ```py
 # 19 Predictors we choose based on EDA
