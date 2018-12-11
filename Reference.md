@@ -32,3 +32,4 @@
 32) Morris JC, Storandt M, McKeel DW, Jr, et al. Cerebral amyloid deposition and diffuse plaques in “normal” aging: evidence for presymptomatic and very mild Alzheimer's disease. Neurology. 1996;46(3):707–719. 
 33) Grundman M, Petersen RC, Ferris SH, et al. Mild cognitive impairment can be distinguished from Alzheimer disease and normal aging for clinical trials. Arch Neurol. 2004;61(1):59–66. 
 34) Andersen K, Lolk A, Kragh-Sorensen P, Petersen NE, Green A. Depression and the risk of Alzheimer disease. Epidemiology. 2005;16(2):233–238. 
+35) Cedarbaum JM, Jaros M, Hernandez C, Coley N, Andrieu S, Grundman M, Vellas B, Alzheimer's Disease Neuroimaging Initiative. Rationale for use of the Clinical Dementia Rating Sum of Boxes as a primary outcome measure for Alzheimer’s disease clinical trials. Alzheimer's & Dementia. 2013 Feb 1;9(1):S45-55.
