@@ -143,3 +143,11 @@ plt.xlabel('History of alcohol abuse')
 plt.ylabel('Count') ;
 ```
 ![Smoking_Alcohol](Smok_ALC.png)
+
+```Markdown
+###Interpretation
+Baseline smoking: Based on the countplot, people who smoke are more likely to have baseline diagnosis of LMCI. We should include Baseline smoking as potential predictor.
+Baseline alcohol abuse: The majority of the people in this dataset do not have history of alcohol abuse. We do not have sufficient power to observe the pattern of baseline diagnosis across different alcohol abuse status.
+###Variable Selection
+We select Baseline smoking as potential predictor.
+```
