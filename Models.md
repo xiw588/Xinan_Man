@@ -14,7 +14,7 @@
     7) Random Forest
     8) AdaBoost
     
-## 1. Data Preparation <a name="data-preparation"></a>
+## <a name="data-preparation"></a> 1. Data Preparation
 #### 1) Reading and Cleaning Data
 
 ```py
