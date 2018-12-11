@@ -249,6 +249,8 @@ y_tests = [y_test1, y_test2, y_test3]
 labels = ['Drop Missing', 'Mean Imputation', 'Regression Imputation']
 ```
 
+## 1. Data Preparation
+
 ### 2.Classification
 #### 0) Principle Component Analysis (PCA)
 
