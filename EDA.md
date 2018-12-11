@@ -7,17 +7,17 @@
     [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease](#cdrsb1)<br>
     [c.)Lifestyle factors (from medical history dataset)](#cdrsb1)<br>
     [d.)Neurocognitive/neuropsychological assessments](#cdrsb1)<br>
-      [1.)Histogram](#cdrsb1)<br>
-      [2.)Box plots and count plots with Outcomes](#cdrsb1)<br>
-      [3.)Correlation matrix](#cdrsb1)<br>
+        [1.)Histogram](#cdrsb1)<br>
+        [2.)Box plots and count plots with Outcomes](#cdrsb1)<br>
+        [3.)Correlation matrix](#cdrsb1)<br>
     [e.)Cerebrospinal fluid (CSF) Biomarkers](#cdrsb1)<br>
-      [1.)Histogram](#cdrsb1)<br>
-      [2.)Box plots](#cdrsb1)<br>
-      [3.)Correlation matrix](#cdrsb1)<br>
+        [1.)Histogram](#cdrsb1)<br>
+        [2.)Box plots](#cdrsb1)<br>
+        [3.)Correlation matrix](#cdrsb1)<br>
     [f.)Imaging factors](#cdrsb1)<br>
-      [1.)Histogram](#cdrsb1)<br>
-      [2.)Box plots](#cdrsb1)<br>
-      [3.)Correlation matrix](#cdrsb1)<br>
+        [1.)Histogram](#cdrsb1)<br>
+        [2.)Box plots](#cdrsb1)<br>
+        [3.)Correlation matrix](#cdrsb1)<br>
     [g.) Genetic factors](#cdrsb1)<br>
 </ul>
 
