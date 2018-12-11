@@ -71,3 +71,15 @@ data_test.to_csv('data_test.csv')
 ## <a name="Perform EDA to select potential predictors"></a> 2. Perform EDA to select potential predictors
 ## <a name="a. Demographics Characteristics"></a>a. Demographics Characteristics
 ## <a name="Outcome: Baseline Diagnosis of Alzheimer's Disease"></a> Outcome: Baseline Diagnosis of Alzheimer's Disease
+
+```py
+bldx_df=pd.DataFrame(index=['Baseline Diagnosis Prevalence'],columns=['CN','AD','LMCI'])
+bldx_df.CN=np.mean(data_train['DX_bl']=='CN')
+bldx_df.AD=np.mean(data_train['DX_bl']=='AD')
+bldx_df.LMCI=np.mean(data_train['DX_bl']=='LMCI')
+bldx_df
+```	
+CN	AD	LMCI
+Baseline Diagnosis Prevalence	0.294964	0.230216	0.47482
+
+
