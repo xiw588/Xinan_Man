@@ -3,16 +3,16 @@
 [1. Data Preparation](#data-preparation)<br>
     [1) Reading and Cleaning Data](#reading-and-cleaning-data)<br>
     [2) Imputing and Scaling Data](#imputing-and-scaling-data)<br>
-2. Classification
-    0) Principle Component Analysis (PCA)
-    1) Multinomial Logistic Modeling
-    2) Linear discriminant analysis (LDA)
-    3) Quadratic Discriminant Analysis (QDA)
-    4) k-NN
-    5) Decision Tree
-    6) Bagging
-    7) Random Forest
-    8) AdaBoost
+[2. Classification](#classification)<br>
+    [0) Principle Component Analysis (PCA)](#pca)<br>
+    [1) Multinomial Logistic Modeling](#logistic)<br>
+    [2) Linear discriminant analysis](#lda)(lda)<br>
+    [3) Quadratic Discriminant Analysis](#qda)(qda)<br>
+    [4) k-NN(#knn)]<br>
+    [5) Decision Tree(#decision-tree)]<br>
+    [6) Bagging(#bagging)]<br>
+    [7) Random Forest(#random-forest)]<br>
+    [8) AdaBoost(#adaboost)]<br>
     
 ## <a name="data-preparation"></a> 1. Data Preparation
 #### <a name="reading-and-cleaning-data"></a> 1) Reading and Cleaning Data
@@ -248,8 +248,8 @@ y_tests = [y_test1, y_test2, y_test3]
 labels = ['Drop Missing', 'Mean Imputation', 'Regression Imputation']
 ```
 
-### 2.Classification
-#### 0) Principle Component Analysis (PCA)
+### <a name="classification"></a> 2.Classification
+#### <a name="pca"></a> 0) Principle Component Analysis (PCA)
 
 ```py
 fig, ax_pca1 = plt.subplots(1,3, figsize=(18,5))
@@ -304,7 +304,7 @@ for i in range(3):
 ![PC1 vs. PC2](/images/pca1.png)
 ![Cumulative explained variance](/images/pca2.png)
 
-#### 1) Multinomial Logistic Modeling
+#### <a name="logistic"></a> 1) Multinomial Logistic Modeling
 
 ```py
 # Multinomial logistic model
@@ -375,7 +375,7 @@ print(classification_report(y_tests[2], logi_models[2].predict(X_tests[2])))
 ```
 
 
-#### 2) Linear discriminant analysis (LDA)
+#### <a name="lda"></a> 2) Linear discriminant analysis (LDA)
 ```py
 # LDA
 lda_accs_train = []
@@ -414,7 +414,7 @@ Training accuracy of LDA model: 0.9137
 Test accuracy of LDA model: 0.8739
 ```
 
-#### 3) Quadratic Discriminant Analysis (QDA)
+#### <a name="qda"></a> 3) Quadratic Discriminant Analysis (QDA)
 ```py
 # QDA
 qda_accs_train = []
@@ -475,7 +475,7 @@ QDA:
 ```
 
 
-#### 4) k-NN
+#### <a name="knn"></a> 4) k-NN
 **First, we fit multiple k-NN models on training set, and find the best number of k based on cross validation scores**
 ```py
 #Fit knn models on training set
@@ -553,7 +553,7 @@ print(classification_report(y_tests[1], knn_models[1].predict(X_tests[1])))
            3           0.82                0.80
 ```
 
-#### 5) Decision Tree
+#### <a name="decision-tree"></a> 5) Decision Tree
 **First, we fit multiple decision trees with different max tree depth on training set, and find the best max tree depth based on cross validation scores**
 ```py
 # Fit Decision trees with different max tree depth
@@ -724,7 +724,7 @@ node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
       node 14: predict class 3
 ```
 
-#### 6) Bagging
+#### <a name="bagging"></a> 6) Bagging
 **We used the best decision tree for each imputation method as the base model, and do Bagging with 50 bootstrapping samples.**
 
 ```python
@@ -832,7 +832,7 @@ print(classification_report(y_tests[2], dt_models[2].predict(X_tests[2])))
            3           0.94                0.92
 ```
 
-#### 7) Random Forest
+#### <a name="random-forest"></a> 7) Random Forest
 **We used the best decision tree as the base model, built random forest models with different number of trees, and chose the optimal number of trees for each imputation method based on training accuracy.**
 ```python
 # build random forest with different number of trees
@@ -935,7 +935,7 @@ print(classification_report(y_tests[2], rf_models[2].predict(X_tests[2])))
            3           0.95                0.97
 ```
 
-#### 8) AdaBoost
+#### <a name="adaboost"></a> 8) AdaBoost
 **We used the best decision tree for each imputation method as the base model to build AdaBoost model.**
 ```py
 # Adaboost model using decision tree as baseline model
