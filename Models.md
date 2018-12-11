@@ -1,6 +1,6 @@
 # Models
 ## Contents
-[1. Data Preparation](#1\.-data-preparation)<br>
+[1. Data Preparation](#data-preparation)<br>
     [1) Reading and Cleaning Data](#1\)-reading-and-cleaning-data)<br>
     [2) Imputing and Scaling Data](#2\)-imputing-and-scaling-data)<br>
 2. Classification
@@ -14,8 +14,7 @@
     7) Random Forest
     8) AdaBoost
     
-[text](#reading-and-cleaning-data)
-## 1. Data Preparation
+## Data Preparation
 #### 1) Reading and Cleaning Data
 
 ```py
@@ -78,7 +77,7 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
 1. Deleting all missing in predictors
 2. Mean imputation
 3. Regression imputation
-#### Reading and Cleaning Data
+
 ```py
 # 1. no imputation: drop missing values
 
