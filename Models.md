@@ -14,9 +14,8 @@
     7) Random Forest
     8) AdaBoost
     
-[Link to Header](#the-header)
 
-### 1. Data Preparation
+## 1. Data Preparation
 #### 1) Reading and Cleaning Data
 
 ```py
@@ -74,7 +73,6 @@ predictors = ['AGE','gender','married','MH16SMOK','MMSE_bl','RAVLT_learning_bl',
                     'TMT_PtB_Complete','CDRSB_bl','ABETA_bl_n','TAU_bl_n','Hippocampus_bl','Entorhinal_bl',
                     'Ventricles_bl','MidTemp_bl','APOE4']
 ```
-## The Header
 #### 2) Imputing and Scaling Data
 **We used three imputation methods to impute missing data:**
 1. Deleting all missing in predictors
