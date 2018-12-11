@@ -2,7 +2,7 @@
 ## Contents
 [0.Import Libraries](#import-library)<br>
 [1.Load, Preprocess, Merge, and Split data](#load-data)<br>
-[2.Perform EDA to select potential predictors](#eda)<br>
+[2.Perform EDA to select potential predictors](#eda_0)<br>
     [1) Outcome: Baseline Diagnosis of Alzheimer's Disease](#eda_1)<br>
     [2) Demographics Characteristics](#eda_2)<br>
     [3) Lifestyle factors (from medical history dataset)](#eda_3)<br>
@@ -73,7 +73,7 @@ The sample size of training set is 278 (71.47 %).
 The sample size of test set is 111 (28.53 %).
 ```
 
-## <a name="eda"></a> 2. Perform EDA to select potential predictors
+## <a name="eda_0"></a> 2. Perform EDA to select potential predictors
 ### <a name="eda_1"></a> 1) Outcome: Baseline Diagnosis of Alzheimer's Disease
 
 ```py
