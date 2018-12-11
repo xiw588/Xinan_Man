@@ -289,7 +289,7 @@ for i in range(3):
 (Regression Imputation) The number of PCs that account for 80% of the variance is 29.
 (Regression Imputation) The number of PCs that account for 90% of the variance is 33.
 ```
-(/.png)
+![PC1 vs. PC2](/images/pca1.png)
 
 #### 1) Multinomial Logistic Modeling
 
