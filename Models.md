@@ -1,8 +1,8 @@
 # Models
 ## Contents
 [1. Data Preparation](#data-preparation)<br>
-    [1) Reading and Cleaning Data](#1\)-reading-and-cleaning-data)<br>
-    [2) Imputing and Scaling Data](#2\)-imputing-and-scaling-data)<br>
+    [1) Reading and Cleaning Data](#reading-and-cleaning-data)<br>
+    [2) Imputing and Scaling Data](#imputing-and-scaling-data)<br>
 2. Classification
     0) Principle Component Analysis (PCA)
     1) Multinomial Logistic Modeling
@@ -15,7 +15,7 @@
     8) AdaBoost
     
 ## <a name="data-preparation"></a> 1. Data Preparation
-#### 1) Reading and Cleaning Data
+#### <a name="reading-and-cleaning-data"></a> 1) Reading and Cleaning Data
 
 ```py
 # import dataset
