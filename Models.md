@@ -365,6 +365,7 @@ print(classification_report(y_tests[2], logi_models[2].predict(X_tests[2])))
 
 #### 2) Linear discriminant analysis (LDA)
 ```py
+# LDA
 lda_accs_train = []
 lda_accs_test = []
 lda_models = []
@@ -403,6 +404,7 @@ Test accuracy of LDA model: 0.8739
 
 #### 3) Quadratic Discriminant Analysis (QDA)
 ```py
+# QDA
 qda_accs_train = []
 qda_accs_test = []
 qda_models = []
@@ -657,6 +659,7 @@ def show_tree_structure(clf):
                 indent, i, feature[i], threshold[i], children_left[i], children_right[i]))
 ```
 ```py
+# tree structure of models dropping missing values
 show_tree_structure(dt_models[0])
 ```
 ```Markdown
@@ -669,6 +672,7 @@ node 0: if X[:, 11] <= -0.731 then go to node 1, else go to node 2
     node 4: predict class 2
 ```
 ```py
+# tree structure of models using mean imputation
 show_tree_structure(dt_models[1])
 ```
 ```Markdown
@@ -685,6 +689,7 @@ node 0: if X[:, 11] <= -0.837 then go to node 1, else go to node 2
       node 8: predict class 3
 ```
 ```py
+# tree structure of models using regression imputation
 show_tree_structure(dt_models[2])
 ```
 ```Markdown
