@@ -20,4 +20,5 @@ The CDR is obtained through semistructured interviews of patients and informants
 
 ## MMSE 
 
-## ADAS13
+## ADAS-13
+The Alzheimer’s Disease (AD) Assessment Scale-Cognitive Subscale (ADAS-Cog) is developed in 1980s and it is considered the gold standard for assessing the efficacy of antidementia treatments. The ADAS-Cog is often employed in these pre-dementia studies; however, the ADAS-Cog was developed for use in studies of dementia where cognitive impairments are more severe. In previous study, people have already raised concerns about whether the ADAS-Cog is able to detect important changes at earlier stages of disease progression. In our study, we have more than half of the patients who are CN and MCI, who are not exactly targeted for this assessment. 
