@@ -285,3 +285,54 @@ sns.heatmap(corr_b, cmap=dpal, annot=True, fmt=".2f", ax=axb3,
 ![Imaging_Heat](image_Heat.png)
 
 e. Imaging factors
+## <a name="1.Histogram"></a> 1.Histogram
+```py
+img_columns = ['Ventricles_bl','Hippocampus_bl','WholeBrain_bl','Entorhinal_bl','Fusiform_bl','MidTemp_bl']
+img_df = data_train[['DX_bl'] + img_columns].dropna()
+fig, axi1 = plt.subplots(2,3,figsize=(20,10))
+plt.subplots_adjust(hspace=0.4,wspace = 0.3)
+fig.suptitle('Histogram of several imaging predictors with their mean (training set)', fontsize=24)
+axi1 = axi1.ravel()
+for i in range(6):
+    axi1[i].hist(img_df[img_columns[i]], alpha=0.7, bins=20, label='Histogram')
+    axi1[i].axvline(img_df[img_columns[i]].mean(), 0, 1.0, color='red', label='Mean')
+    axi1[i].set_xlabel(img_columns[i])
+    axi1[i].set_ylabel('Frequency')  
+```
+![Imaging](imaging.png)
+
+ ## <a name="2.Box plot"></a> 2.Box plot
+```py
+fig, axi2 = plt.subplots(2,3,figsize=(20,10))
+fig.suptitle('Imaging Brain Factors vs. Baseline Diagnosis', fontsize=20)
+plt.subplots_adjust(hspace=0.3, wspace=0.45)
+axi2 = axi2.ravel()
+for i in range(len(img_columns)):
+    sns.boxplot(ax=axi2[i], x='DX_bl', y=img_columns[i], data=img_df)
+    axi2[i].set_xlabel('Baseline Diagnosis',fontsize=14)
+    axi2[i].set_ylabel(img_columns[i],fontsize=14)
+```
+![Imaging](imaging_box.png)
+## <a name="3.Correlation matrix"></a> 3.Correlation matrix
+```py
+img_df_corr = img_df.drop(columns='DX_bl')
+corr_i = pd.DataFrame(np.corrcoef(img_df_corr.T))
+corr_i.columns = img_columns
+
+fig, axi3 = plt.subplots(1,1, figsize=(10,8))
+fig.suptitle('Heatmap for Imaging Brain Factors Correlations', fontsize=20)
+sns.heatmap(corr_i, cmap=dpal, annot=True, fmt=".2f", ax=axi3, xticklabels=img_columns, yticklabels=img_columns);
+```
+![Imaging](imaging_Heat.png)
+
+f. Genetic factors
+```py
+# APOE status vs. Baseline Diagnosis
+data_apoe = data_train[['APOE4','DX_bl']]
+sns.countplot(x='APOE4', hue='DX_bl', data=data_apoe)
+plt.title('APOE4 Status vs. Baseline Diagnosis')
+plt.xlabel('Number of APOE4 Copy')
+plt.ylabel('Count');
+```
+![Genetics](genetic.png)
+
