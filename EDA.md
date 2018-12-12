@@ -157,7 +157,8 @@ We select Baseline smoking as potential predictor.**
 
 For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 
-###<a name="1. Histogram"></a> 1. Histogram
+### <a name="1. Histogram"></a> 1. Histogram
+
 ```py
 # plot the histogram of these predictors:
 neu_predictors = ['MMSE_bl','RAVLT_learning_bl','RAVLT_immediate_bl','RAVLT_forgetting_bl',
