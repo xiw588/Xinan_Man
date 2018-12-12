@@ -185,7 +185,7 @@ for i in range(len(neu_predictors)):
     axn1[i].set_ylabel('Frequency',fontsize=14)
 ```
 ![Neuro](Neuro.png)
-## <a name="Box plots and count plots with Outcomes"></a> 2. Box plots and count plots with Outcomes
+### <a name="Box plots and count plots with Outcomes"></a> 2. Box plots and count plots with Outcomes
 ```py
 # plot the boxplot of these predictors versus baseline diagnosis:
 
@@ -201,7 +201,7 @@ for i in range(len(neu_predictors)):
  ```
  ![Neuro_BOX](Neuro_Box.png)
  
- ## <a name="3. Correlation matrix"></a> 3.Correlation matrix
+### <a name="3. Correlation matrix"></a> 3.Correlation matrix
  ```py
   # Correlations between neuropsychological measures
 data_neuro_corr = data_neuro.drop(columns='DX_bl')
@@ -215,8 +215,8 @@ sns.heatmap(corr_n, cmap=dpal, annot=True, fmt=".2f", ax=axn3, xticklabels=neu_p
  ![Neuro_Heat](Neuro_Heat.png)
 
 
- ## <a name="d. Cerebrospinal fluid (CSF) Biomarkers"></a> d. Cerebrospinal fluid (CSF) Biomarkers
- ## <a name="1.Histogram"></a> 1.Histogram
+## <a name="d. Cerebrospinal fluid (CSF) Biomarkers"></a> d. Cerebrospinal fluid (CSF) Biomarkers
+### <a name="1.Histogram"></a> 1.Histogram
 ```py
  # recode these three variable
 biomkr_df = data_train[['DX_bl','ABETA_bl','TAU_bl','PTAU_bl']].dropna()
@@ -256,7 +256,7 @@ for i in range(3):
 ```
 ![Imaging](image.png)
 
- ## <a name="2.Box plot"></a> 2.Box plot
+### <a name="2.Box plot"></a> 2.Box plot
  ```py
  ## <a name="2.Box plot"></a> 2.Box plot
  ## <a name="2.Box plot"></a> 2.Box plot
@@ -271,7 +271,7 @@ for i in range(len(biomkr_df_colunms)):
 ```
 ![Imaging_box](image_box.png)
 
- ## <a name="3.Correlation matrix"></a> 3.Correlation matrix
+### <a name="3.Correlation matrix"></a> 3.Correlation matrix
 ```py
 biomkr_df_corr = biomkr_df.drop(columns='DX_bl')
 corr_b = pd.DataFrame(np.corrcoef(biomkr_df_corr.T))
@@ -284,8 +284,8 @@ sns.heatmap(corr_b, cmap=dpal, annot=True, fmt=".2f", ax=axb3,
 ```
 ![Imaging_Heat](image_Heat.png)
 
-e. Imaging factors
-## <a name="1.Histogram"></a> 1.Histogram
+## <a name="e. Imaging factors"></a>e. Imaging factors
+### <a name="1.Histogram"></a> 1.Histogram
 ```py
 img_columns = ['Ventricles_bl','Hippocampus_bl','WholeBrain_bl','Entorhinal_bl','Fusiform_bl','MidTemp_bl']
 img_df = data_train[['DX_bl'] + img_columns].dropna()
@@ -301,7 +301,7 @@ for i in range(6):
 ```
 ![Imaging](imaging.png)
 
- ## <a name="2.Box plot"></a> 2.Box plot
+### <a name="2.Box plot"></a> 2.Box plot
 ```py
 fig, axi2 = plt.subplots(2,3,figsize=(20,10))
 fig.suptitle('Imaging Brain Factors vs. Baseline Diagnosis', fontsize=20)
@@ -313,7 +313,7 @@ for i in range(len(img_columns)):
     axi2[i].set_ylabel(img_columns[i],fontsize=14)
 ```
 ![Imaging](imaging_box.png)
-## <a name="3.Correlation matrix"></a> 3.Correlation matrix
+### <a name="3.Correlation matrix"></a> 3.Correlation matrix
 ```py
 img_df_corr = img_df.drop(columns='DX_bl')
 corr_i = pd.DataFrame(np.corrcoef(img_df_corr.T))
@@ -325,7 +325,7 @@ sns.heatmap(corr_i, cmap=dpal, annot=True, fmt=".2f", ax=axi3, xticklabels=img_c
 ```
 ![Imaging](imaging_Heat.png)
 
-f. Genetic factors
+## <a name="f. Genetic factors"></a>f. Genetic factors
 ```py
 # APOE status vs. Baseline Diagnosis
 data_apoe = data_train[['APOE4','DX_bl']]
