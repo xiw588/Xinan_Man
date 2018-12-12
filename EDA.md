@@ -1,15 +1,15 @@
 # EDA
 ## Contents
-[0.Import Libraries](#cdrsb1)<br>
-[1.Load, Preprocess, Merge, and Split data](#cdrsb1)<br>
-[2.Perform EDA to select potential predictors](#cdrsb1)<br>
-    [a.)Demographics Characteristics](#cdrsb1)<br>
-    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease](#cdrsb1)<br>
-    [c.)Lifestyle factors (from medical history dataset)](#cdrsb1)<br>
-    [d.)Neurocognitive/neuropsychological assessments](#cdrsb1)<br>
-    [e.)Cerebrospinal fluid (CSF) Biomarkers](#cdrsb1)<br>
-    [f.)Imaging factors](#cdrsb1)<br>
-    [g.) Genetic factors](#cdrsb1)<br>
+[0.Import Libraries](#Import libraries)<br>
+[1.Load, Preprocess, Merge, and Split data](#Load, Preprocess, Merge, and Split data)<br>
+[2.Perform EDA to select potential predictors](#Perform EDA to select potential predictors)<br>
+    [a.)Demographics Characteristics](#a. Demographics Characteristics)<br>
+    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease](#b. Outcome: Baseline Diagnosis of Alzheimer's Disease)<br>
+    [c.)Lifestyle factors (from medical history dataset)](#c. Lifestyle factors)<br>
+    [d.)Neurocognitive/neuropsychological assessments](#d. Cerebrospinal fluid (CSF) Biomarkers)<br>
+    [e.)Cerebrospinal fluid (CSF) Biomarkers](#e. Cerebrospinal fluid (CSF) Biomarkers)<br>
+    [f.)Imaging factors](#f. Imaging factors)<br>
+    [g.) Genetic factors](#g. Genetic factors)<br>
 [3.Summary](#summary)<br> 
 </ul>
 
@@ -71,7 +71,7 @@ data_test.to_csv('data_test.csv')
 ```
 ## <a name="Perform EDA to select potential predictors"></a> 2. Perform EDA to select potential predictors
 ## <a name="a. Demographics Characteristics"></a>a. Demographics Characteristics
-## <a name="Outcome: Baseline Diagnosis of Alzheimer's Disease"></a> Outcome: Baseline Diagnosis of Alzheimer's Disease
+## <a name="b. Outcome: Baseline Diagnosis of Alzheimer's Disease"></a> b. Outcome: Baseline Diagnosis of Alzheimer's Disease
 
 ```py
 bldx_df=pd.DataFrame(index=['Baseline Diagnosis Prevalence'],columns=['CN','AD','LMCI'])
@@ -123,7 +123,7 @@ Education:There is no apparent relationship between Education and baseline diagn
 **Variable Selection:
 We select Age, Gender and Marital Status as potential predictors.**
 
-## <a name="b. Lifestyle factors"></a> b. Lifestyle factors (from medical history dataset)
+## <a name="c. Lifestyle factors"></a> c. Lifestyle factors (from medical history dataset)
 ```py
 plt.figure(figsize=(18,6))
 
@@ -153,7 +153,7 @@ Baseline alcohol abuse: The majority of the people in this dataset do not have h
 We select Baseline smoking as potential predictor.**
 
 
-## <a name="Neurocognitive/neuropsychological assessments"></a> c. Neurocognitive/neuropsychological assessments
+## <a name="d. Neurocognitive/neuropsychological assessments"></a> d. Neurocognitive/neuropsychological assessments
 
 For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 
@@ -201,6 +201,7 @@ for i in range(len(neu_predictors)):
     axn2[i].set_ylabel(neu_xlabels[i],fontsize=14)
  ```
  ![Neuro_BOX](Neuro_Box.png)
+ 
 **Interpretation:**
 There is apparent association between baseline diagnosis and baseline MMSE score, RAVLT scores (learning), RAVLT scores (immediate recall), RAVLT scores (percent forgeting), AVLT Delayed Recognition score, Baseline ADAS11, Baseline ADAS13, Trail making test B score, Clinical Dementia Rating score, FAQ score.
 Only RAVLT scores (forgetting) and Trail making test A score seem to have no difference within different baseline diagnosis group.
@@ -226,7 +227,7 @@ We should include variables that has different distribution within different bas
 For the highly correlated variables, for instance, ADAS11 and ADAS13, CDRSB and FAQ, we should furthur look into them and include only one within the pairs to avoid colinearity.**
 
 
-## <a name="d. Cerebrospinal fluid (CSF) Biomarkers"></a> d. Cerebrospinal fluid (CSF) Biomarkers
+## <a name="e. Cerebrospinal fluid (CSF) Biomarkers"></a> e. Cerebrospinal fluid (CSF) Biomarkers
 
 For Cerebrospinal fluid (CSF) Biomarkers, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 
@@ -307,7 +308,7 @@ ABETA is weakly associated with the other two variables.
 **Variable Selection:
 We may include ABETA and TAU as potential predictors.**
 
-## <a name="e. Imaging factors"></a>e. Imaging factors
+## <a name="f. Imaging factors"></a>f. Imaging factors
 ### <a name="1.Histogram"></a> 1.Histogram
 ```py
 img_columns = ['Ventricles_bl','Hippocampus_bl','WholeBrain_bl','Entorhinal_bl','Fusiform_bl','MidTemp_bl']
@@ -362,7 +363,7 @@ The imaging Brain features are not very correlated with each other. The highest 
 **Variable Selection:
 We may include Hippocampus_bl, Entorhinal_bl, Ventricles_bl, MidTemp_bl into analysis.**
 
-## <a name="f. Genetic factors"></a>f. Genetic factors
+## <a name="g. Genetic factors"></a>g. Genetic factors
 ```py
 # APOE status vs. Baseline Diagnosis
 data_apoe = data_train[['APOE4','DX_bl']]
