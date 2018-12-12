@@ -156,7 +156,7 @@ We select Baseline smoking as potential predictor.
 ```Markdown
 For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 ```
-## <a name="1. Histogram"></a> 1. Histogram
+###<a name="1. Histogram"></a> 1. Histogram
 
 # plot the histogram of these predictors:
 ```py
