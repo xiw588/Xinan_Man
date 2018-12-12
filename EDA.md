@@ -108,7 +108,7 @@ for i in range(2):
     axd[i+4].set_xlabel('Baseline Diagnosis')
     axd[i+4].set_title(demo_cont_title[i])
 ```
-![Demographics](Unknown.png)
+![Demographics](/images/Unknown.png)
 
 **Interpretation:**
 Outcome:There is only three types of basline diagnosis status for people in ADNI1 stage.
@@ -143,7 +143,7 @@ plt.title('History alcohol abuse vs. Baseline Diagnosis')
 plt.xlabel('History of alcohol abuse')
 plt.ylabel('Count') ;
 ```
-![Smoking_Alcohol](Smok_ALC.png)
+![Smoking_Alcohol](/images/Smok_ALC.png)
 
 **Interpretation:**
 Baseline smoking: Based on the countplot, people who smoke are more likely to have baseline diagnosis of LMCI. We should include Baseline smoking as potential predictor.
@@ -185,7 +185,7 @@ for i in range(len(neu_predictors)):
     axn1[i].set_xlabel(neu_xlabels[i],fontsize=15)
     axn1[i].set_ylabel('Frequency',fontsize=14)
 ```
-![Neuro](Neuro.png)
+![Neuro](/images/Neuro.png)
 ### <a name="Box plots and count plots with Outcomes"></a> 2. Box plots and count plots with Outcomes
 ```py
 # plot the boxplot of these predictors versus baseline diagnosis:
@@ -200,7 +200,7 @@ for i in range(len(neu_predictors)):
     axn2[i].set_xlabel('Baseline Diagnosis',fontsize=14)
     axn2[i].set_ylabel(neu_xlabels[i],fontsize=14)
  ```
- ![Neuro_BOX](Neuro_Box.png)
+ ![Neuro_BOX](/images/Neuro_Box.png)
  
 **Interpretation:**
 There is apparent association between baseline diagnosis and baseline MMSE score, RAVLT scores (learning), RAVLT scores (immediate recall), RAVLT scores (percent forgeting), AVLT Delayed Recognition score, Baseline ADAS11, Baseline ADAS13, Trail making test B score, Clinical Dementia Rating score, FAQ score.
@@ -217,7 +217,7 @@ fig, axn3 = plt.subplots(1,1, figsize=(10,8))
 fig.suptitle('Heatmap for Neurocognitive/Neuropsychological Assessments Correlations', fontsize=20)
 sns.heatmap(corr_n, cmap=dpal, annot=True, fmt=".2f", ax=axn3, xticklabels=neu_predictors, yticklabels=neu_predictors);
 ```
- ![Neuro_Heat](Neuro_Heat.png)
+ ![Neuro_Heat](/images/Neuro_Heat.png)
  
 **Interpretation**:
 Neuropsychological measures in the same domain (e.g. Trail making Tests are in the attention/executive functioning domain; AVLT measures are in the memory domain), tend to be positively correlated. Correlations tend to be weaker and often in opposite directions for inter-domain comparisons.
@@ -269,7 +269,7 @@ for i in range(3):
     axb1[i].set_ylabel('Frequency')
     axb1[i].set_title('Distribution of Baseline '+ bio_xlabel[i][:-8]);
 ```
-![Imaging](image.png)
+![Imaging](/images/image.png)
 
 ### <a name="2.Box plot"></a> 2.Box plot
  ```py
@@ -284,7 +284,7 @@ for i in range(len(biomkr_df_colunms)):
     axb2[i].set_xlabel('Baseline Diagnosis',fontsize=14)
     axb2[i].set_ylabel(biomkr_df_colunms[i],fontsize=14)
 ```
-![Imaging_box](image_box.png)
+![Imaging_box](/images/image_box.png)
 
 **Interpretation**
 Based on the boxplot, all the three variables seem to be correlated with baseline diagnosis. We could consider to include them.
@@ -300,7 +300,7 @@ fig.suptitle('Heatmap for CSF Biomarkers Correlations', fontsize=20)
 sns.heatmap(corr_b, cmap=dpal, annot=True, fmt=".2f", ax=axb3, 
             xticklabels=biomkr_df_colunms, yticklabels=biomkr_df_colunms);
 ```
-![Imaging_Heat](image_Heat.png)
+![Imaging_Heat](/images/image_Heat.png)
 **Interpretation**
 TAU and PTAU are clearly highly correlated. We should only include one of them.
 ABETA is weakly associated with the other two variables.
@@ -323,7 +323,7 @@ for i in range(6):
     axi1[i].set_xlabel(img_columns[i])
     axi1[i].set_ylabel('Frequency')  
 ```
-![Imaging](imaging.png)
+![Imaging](/images/imaging.png)
 
 **Interpretation**
 All the six imaging brain features are pretty normally distributed, except for the Ventricles_bl. We may need to consider to transform it later in analysis.
@@ -339,7 +339,7 @@ for i in range(len(img_columns)):
     axi2[i].set_xlabel('Baseline Diagnosis',fontsize=14)
     axi2[i].set_ylabel(img_columns[i],fontsize=14)
 ```
-![Imaging](imaging_box.png)
+![Imaging](/images/imaging_box.png)
 
 **Interpretation**
 Based on the boxplot, we could see that baseline Hippocampus volume and Entorhinal volume is apparently associated with baseline diagnosis.
@@ -355,7 +355,7 @@ fig, axi3 = plt.subplots(1,1, figsize=(10,8))
 fig.suptitle('Heatmap for Imaging Brain Factors Correlations', fontsize=20)
 sns.heatmap(corr_i, cmap=dpal, annot=True, fmt=".2f", ax=axi3, xticklabels=img_columns, yticklabels=img_columns);
 ```
-![Imaging](imaging_Heat.png)
+![Imaging](/images/imaging_Heat.png)
 
 **Interpretation**
 The imaging Brain features are not very correlated with each other. The highest correlation comes from WholeBrain_bl and MidTemp_bl. We may consider to drop one of them, and keep other six.
@@ -372,7 +372,7 @@ plt.title('APOE4 Status vs. Baseline Diagnosis')
 plt.xlabel('Number of APOE4 Copy')
 plt.ylabel('Count');
 ```
-![Genetics](genetic.png)
+![Genetics](/images/genetic.png)
 
 **Interpretation**
 APOE4 Status: The APOE4 status seems to be associated with baseline diagnosis, but the association is not very clear based on this plot. We may select APOE status as potential predictor.
