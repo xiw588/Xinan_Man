@@ -1,20 +1,20 @@
 # EDA
 ## Contents
-[0.Import Libraries](#Import libraries)<br>
-[1.Load, Preprocess, Merge, and Split data](#Load, Preprocess, Merge, and Split data)<br>
-[2.Perform EDA to select potential predictors](#Perform EDA to select potential predictors)<br>
-    [a.)Demographics Characteristics](#a. Demographics Characteristics)<br>
-    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease](#b. Outcome: Baseline Diagnosis of Alzheimer's Disease)<br>
-    [c.)Lifestyle factors (from medical history dataset)](#c. Lifestyle factors)<br>
-    [d.)Neurocognitive/neuropsychological assessments](#d. Cerebrospinal fluid (CSF) Biomarkers)<br>
-    [e.)Cerebrospinal fluid (CSF) Biomarkers](#e. Cerebrospinal fluid (CSF) Biomarkers)<br>
-    [f.)Imaging factors](#f. Imaging factors)<br>
-    [g.) Genetic factors](#g. Genetic factors)<br>
+[0.Import Libraries](#Import-libraries)<br>
+[1.Load, Preprocess, Merge, and Split data](#Load-Preprocess-Merge-and-Split-data)<br>
+[2.Perform EDA to select potential predictors](#Perform-EDA-to-select-potential-predictors)<br>
+    [a.)Demographics Characteristics](#Demographics-Characteristics)<br>
+    [b.)Outcome: Baseline Diagnosis of Alzheimer's Disease](#Outcome-Baseline-Diagnosis-of-Alzheimer's-Disease)<br>
+    [c.)Lifestyle factors (from medical history dataset)](#Lifestyle-factors)<br>
+    [d.)Neurocognitive/neuropsychological assessments](#Cerebrospinal-fluid-(CSF)-Biomarkers)<br>
+    [e.)Cerebrospinal fluid (CSF) Biomarkers](#Cerebrospinal-fluid-(CSF)-Biomarkers)<br>
+    [f.)Imaging factors](#Imaging-factors)<br>
+    [g.) Genetic factors](#Genetic-factors)<br>
 [3.Summary](#summary)<br> 
 </ul>
 
 
-## <a name="Import libraries"></a> 0. Import libraries
+## <a name="Import-libraries"></a> 0. Import libraries
 
 ```py
 import numpy as np
@@ -27,7 +27,7 @@ sns.set_context('poster')
 # set color palette
 dpal = sns.choose_colorbrewer_palette(data_type='diverging', as_cmap=True)
 ```
-## <a name="Load, Preprocess, Merge, and Split data"></a> 1. Load, Preprocess, Merge, and Split data
+## <a name="Load-Preprocess-Merge-and-Split-data"></a> 1. Load, Preprocess, Merge, and Split data
 ```py
 # KEY ADNI table with age, gender, ethnicity, race, education, marital status, and APOE status
 # ADNIMERGE data contains part of biomarker data, part of Neuropsychological data, and key feature in FAQ dataset
@@ -69,9 +69,9 @@ print('The sample size of test set is %.d (%.2f' % (data_test.shape[0],
 data_train.to_csv('data_train.csv')
 data_test.to_csv('data_test.csv')
 ```
-## <a name="Perform EDA to select potential predictors"></a> 2. Perform EDA to select potential predictors
-## <a name="a. Demographics Characteristics"></a>a. Demographics Characteristics
-## <a name="b. Outcome: Baseline Diagnosis of Alzheimer's Disease"></a> b. Outcome: Baseline Diagnosis of Alzheimer's Disease
+## <a name="Perform-EDA-to-select-potential-predictors"></a> 2. Perform EDA to select potential predictors
+## <a name="Demographics-Characteristics"></a>a. Demographics Characteristics
+## <a name="Outcome-Baseline-Diagnosis-Of-Alzheimer's-Disease"></a> b. Outcome: Baseline Diagnosis of Alzheimer's Disease
 
 ```py
 bldx_df=pd.DataFrame(index=['Baseline Diagnosis Prevalence'],columns=['CN','AD','LMCI'])
@@ -123,7 +123,7 @@ Education:There is no apparent relationship between Education and baseline diagn
 **Variable Selection:
 We select Age, Gender and Marital Status as potential predictors.**
 
-## <a name="c. Lifestyle factors"></a> c. Lifestyle factors (from medical history dataset)
+## <a name="Lifestyle-factors"></a> c. Lifestyle factors (from medical history dataset)
 ```py
 plt.figure(figsize=(18,6))
 
@@ -153,7 +153,7 @@ Baseline alcohol abuse: The majority of the people in this dataset do not have h
 We select Baseline smoking as potential predictor.**
 
 
-## <a name="d. Neurocognitive/neuropsychological assessments"></a> d. Neurocognitive/neuropsychological assessments
+## <a name="Neurocognitive/neuropsychological-assessments"></a> d. Neurocognitive/neuropsychological assessments
 
 For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 
@@ -227,7 +227,7 @@ We should include variables that has different distribution within different bas
 For the highly correlated variables, for instance, ADAS11 and ADAS13, CDRSB and FAQ, we should furthur look into them and include only one within the pairs to avoid colinearity.**
 
 
-## <a name="e. Cerebrospinal fluid (CSF) Biomarkers"></a> e. Cerebrospinal fluid (CSF) Biomarkers
+## <a name="Cerebrospinal-fluid-(CSF)-Biomarkers"></a> e. Cerebrospinal fluid (CSF) Biomarkers
 
 For Cerebrospinal fluid (CSF) Biomarkers, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
 
@@ -308,7 +308,7 @@ ABETA is weakly associated with the other two variables.
 **Variable Selection:
 We may include ABETA and TAU as potential predictors.**
 
-## <a name="f. Imaging factors"></a>f. Imaging factors
+## <a name="Imaging-factors"></a>f. Imaging factors
 ### <a name="1.Histogram"></a> 1.Histogram
 ```py
 img_columns = ['Ventricles_bl','Hippocampus_bl','WholeBrain_bl','Entorhinal_bl','Fusiform_bl','MidTemp_bl']
@@ -363,7 +363,7 @@ The imaging Brain features are not very correlated with each other. The highest 
 **Variable Selection:
 We may include Hippocampus_bl, Entorhinal_bl, Ventricles_bl, MidTemp_bl into analysis.**
 
-## <a name="g. Genetic factors"></a>g. Genetic factors
+## <a name="Genetic-factors"></a>g. Genetic factors
 ```py
 # APOE status vs. Baseline Diagnosis
 data_apoe = data_train[['APOE4','DX_bl']]
