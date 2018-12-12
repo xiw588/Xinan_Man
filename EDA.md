@@ -109,8 +109,7 @@ for i in range(2):
 ```
 ![Demographics](Unknown.png)
 
-```Markdown
-###Interpretation
+**Interpretation:**
 Outcome: There is only three types of basline diagnosis status for people in ADNI1 stage.
 Gender: Male and female seems to have different patterns of baseline diagnosis. Therefore, we select gender as our potential predictor.
 Marital Status: Based on the countplot, married people seem to have different patterns of baseline diagnosis comparing to unmarried people. We select Martial Status as our potential predictor.
@@ -119,9 +118,9 @@ Ethnicity: The majority of people in our dataset is 'Non-Hispanic/Latino'. There
 Age: Based on the boxplot, Age seems to have different distribution in different baseline diagnosis groups. Therefore, we select age as our potential predictor.
 Education: There is no apparent relationship between Education and baseline diagnosis.
 
-###Variable Selection
+**Variable Selection:**
 We select Age, Gender and Marital Status as potential predictors.
-```
+
 ## <a name="b. Lifestyle factors"></a> b. Lifestyle factors (from medical history dataset)
 ```py
 plt.figure(figsize=(18,6))
@@ -144,13 +143,12 @@ plt.ylabel('Count') ;
 ```
 ![Smoking_Alcohol](Smok_ALC.png)
 
-```Markdown
-###Interpretation
+**Interpretation:**
 Baseline smoking: Based on the countplot, people who smoke are more likely to have baseline diagnosis of LMCI. We should include Baseline smoking as potential predictor.
 Baseline alcohol abuse: The majority of the people in this dataset do not have history of alcohol abuse. We do not have sufficient power to observe the pattern of baseline diagnosis across different alcohol abuse status.
-###Variable Selection
+**Variable Selection:**
 We select Baseline smoking as potential predictor.
-```
+
 
 ## <a name="Neurocognitive/neuropsychological assessments"></a> c. Neurocognitive/neuropsychological assessments
 ```Markdown
