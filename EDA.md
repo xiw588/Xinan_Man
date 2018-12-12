@@ -339,8 +339,8 @@ for i in range(len(img_columns)):
     axi2[i].set_ylabel(img_columns[i],fontsize=14)
 ```
 ![Imaging](imaging_box.png)
-**Interpretation**
 
+**Interpretation**
 Based on the boxplot, we could see that baseline Hippocampus volume and Entorhinal volume is apparently associated with baseline diagnosis.
 The other four features seem to have different distribution in AD diagnosis but but no in CN and LMCI.
 
@@ -372,6 +372,7 @@ plt.xlabel('Number of APOE4 Copy')
 plt.ylabel('Count');
 ```
 ![Genetics](genetic.png)
+
 **Interpretation**
 APOE4 Status: The APOE4 status seems to be associated with baseline diagnosis, but the association is not very clear based on this plot. We may select APOE status as potential predictor.
 
