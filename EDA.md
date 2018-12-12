@@ -152,9 +152,9 @@ We select Baseline smoking as potential predictor.**
 
 
 ## <a name="Neurocognitive/neuropsychological assessments"></a> c. Neurocognitive/neuropsychological assessments
-```Markdown
+
 For neurocognitive/neuropsychological predictors, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
-```
+
 ###<a name="1. Histogram"></a> 1. Histogram
 ```py
 # plot the histogram of these predictors:
@@ -198,6 +198,9 @@ for i in range(len(neu_predictors)):
     axn2[i].set_ylabel(neu_xlabels[i],fontsize=14)
  ```
  ![Neuro_BOX](Neuro_Box.png)
+**Interpretation:**
+There is apparent association between baseline diagnosis and baseline MMSE score, RAVLT scores (learning), RAVLT scores (immediate recall), RAVLT scores (percent forgeting), AVLT Delayed Recognition score, Baseline ADAS11, Baseline ADAS13, Trail making test B score, Clinical Dementia Rating score, FAQ score.
+Only RAVLT scores (forgetting) and Trail making test A score seem to have no difference within different baseline diagnosis group.
  
 ### <a name="3. Correlation matrix"></a> 3.Correlation matrix
  ```py
@@ -211,9 +214,19 @@ fig.suptitle('Heatmap for Neurocognitive/Neuropsychological Assessments Correlat
 sns.heatmap(corr_n, cmap=dpal, annot=True, fmt=".2f", ax=axn3, xticklabels=neu_predictors, yticklabels=neu_predictors);
 ```
  ![Neuro_Heat](Neuro_Heat.png)
+ 
+**Interpretation**:
+Neuropsychological measures in the same domain (e.g. Trail making Tests are in the attention/executive functioning domain; AVLT measures are in the memory domain), tend to be positively correlated. Correlations tend to be weaker and often in opposite directions for inter-domain comparisons.
+
+**Variable Selection:
+We should include variables that has different distribution within different baseline diagnosis group.
+For the highly correlated variables, for instance, ADAS11 and ADAS13, CDRSB and FAQ, we should furthur look into them and include only one within the pairs to avoid colinearity.**
 
 
 ## <a name="d. Cerebrospinal fluid (CSF) Biomarkers"></a> d. Cerebrospinal fluid (CSF) Biomarkers
+
+For Cerebrospinal fluid (CSF) Biomarkers, we first plot their histogram, second present their boxplot within each baseline diagnosis group, then calculate their correlations.
+
 ### <a name="1.Histogram"></a> 1.Histogram
 ```py
  # recode these three variable
@@ -269,6 +282,9 @@ for i in range(len(biomkr_df_colunms)):
 ```
 ![Imaging_box](image_box.png)
 
+**Interpretation**
+Based on the boxplot, all the three variables seem to be correlated with baseline diagnosis. We could consider to include them.
+
 ### <a name="3.Correlation matrix"></a> 3.Correlation matrix
 ```py
 biomkr_df_corr = biomkr_df.drop(columns='DX_bl')
@@ -281,6 +297,12 @@ sns.heatmap(corr_b, cmap=dpal, annot=True, fmt=".2f", ax=axb3,
             xticklabels=biomkr_df_colunms, yticklabels=biomkr_df_colunms);
 ```
 ![Imaging_Heat](image_Heat.png)
+**Interpretation**
+TAU and PTAU are clearly highly correlated. We should only include one of them.
+ABETA is weakly associated with the other two variables.
+
+**Variable Selection:
+We may include ABETA and TAU as potential predictors.**
 
 ## <a name="e. Imaging factors"></a>e. Imaging factors
 ### <a name="1.Histogram"></a> 1.Histogram
@@ -299,6 +321,9 @@ for i in range(6):
 ```
 ![Imaging](imaging.png)
 
+**Interpretation**
+All the six imaging brain features are pretty normally distributed, except for the Ventricles_bl. We may need to consider to transform it later in analysis.
+
 ### <a name="2.Box plot"></a> 2.Box plot
 ```py
 fig, axi2 = plt.subplots(2,3,figsize=(20,10))
@@ -311,6 +336,11 @@ for i in range(len(img_columns)):
     axi2[i].set_ylabel(img_columns[i],fontsize=14)
 ```
 ![Imaging](imaging_box.png)
+**Interpretation**
+
+Based on the boxplot, we could see that baseline Hippocampus volume and Entorhinal volume is apparently associated with baseline diagnosis.
+The other four features seem to have different distribution in AD diagnosis but but no in CN and LMCI.
+
 ### <a name="3.Correlation matrix"></a> 3.Correlation matrix
 ```py
 img_df_corr = img_df.drop(columns='DX_bl')
@@ -323,6 +353,12 @@ sns.heatmap(corr_i, cmap=dpal, annot=True, fmt=".2f", ax=axi3, xticklabels=img_c
 ```
 ![Imaging](imaging_Heat.png)
 
+**Interpretation**
+The imaging Brain features are not very correlated with each other. The highest correlation comes from WholeBrain_bl and MidTemp_bl. We may consider to drop one of them, and keep other six.
+
+**Variable Selection:
+We may include Hippocampus_bl, Entorhinal_bl, Ventricles_bl, MidTemp_bl into analysis.**
+
 ## <a name="f. Genetic factors"></a>f. Genetic factors
 ```py
 # APOE status vs. Baseline Diagnosis
@@ -333,4 +369,20 @@ plt.xlabel('Number of APOE4 Copy')
 plt.ylabel('Count');
 ```
 ![Genetics](genetic.png)
+**Interpretation**
+APOE4 Status: The APOE4 status seems to be associated with baseline diagnosis, but the association is not very clear based on this plot. We may select APOE status as potential predictor.
+
+**Variable Selection:
+We select APOE4 Status as potential predictor.**
+
+## <a name="Summary"></a> Summary
+
+Based on the EDA above, we may first include the following variables as potential predictors for modeling:
+
+1.) Demographic characteristics: Age, Gender, and Marital Status;
+2.) Lifestyle factors: Baseline smoking;
+3.) Neurocognitive/neuropsychological assessments: MMSE_bl, RAVLT_learning_bl, RAVLT_immediate_bl, RAVLT_perc_forgetting_bl, AVLT_Delay_Rec, ADAS13_bl, TMT_PtB_Complete, CDRSB_bl;
+4.) Cerebrospinal fluid (CSF) Biomarkers: ABETA_bl and TAU_bl;
+5.) Imaging Brain factors: Hippocampus_bl, Entorhinal_bl, Ventricles_bl, MidTemp_bl;
+6.) Genetic factors: APOE4 Status.
 
